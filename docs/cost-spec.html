@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<!-- Built with spec-md https://spec-md.com -->
+<html>
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>GraphQL Cost Directives</title>
+<style>/** * prism.js default theme for JavaScript, CSS and HTML * Based on dabblet (http://dabblet.com) * @author Lea Verou */ code[class*="language-"], pre[class*="language-"] { 	color: black; 	background: none; 	text-shadow: 0 1px white; 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; 	font-size: 1em; 	text-align: left; 	white-space: pre; 	word-spacing: normal; 	word-break: normal; 	word-wrap: normal; 	line-height: 1.5; 	-moz-tab-size: 4; 	-o-tab-size: 4; 	tab-size: 4; 	-webkit-hyphens: none; 	-moz-hyphens: none; 	-ms-hyphens: none; 	hyphens: none; } pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection, code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection { 	text-shadow: none; 	background: #b3d4fc; } pre[class*="language-"]::selection, pre[class*="language-"] ::selection, code[class*="language-"]::selection, code[class*="language-"] ::selection { 	text-shadow: none; 	background: #b3d4fc; } @media print { 	code[class*="language-"], 	pre[class*="language-"] { 		text-shadow: none; 	} } /* Code blocks */ pre[class*="language-"] { 	padding: 1em; 	margin: .5em 0; 	overflow: auto; } :not(pre) > code[class*="language-"], pre[class*="language-"] { 	background: #f5f2f0; } /* Inline code */ :not(pre) > code[class*="language-"] { 	padding: .1em; 	border-radius: .3em; 	white-space: normal; } .token.comment, .token.prolog, .token.doctype, .token.cdata { 	color: slategray; } .token.punctuation { 	color: #999; } .token.namespace { 	opacity: .7; } .token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { 	color: #905; } .token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { 	color: #690; } .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { 	color: #9a6e3a; 	/* This background color was intended by the author of this theme. */ 	background: hsla(0, 0%, 100%, .5); } .token.atrule, .token.attr-value, .token.keyword { 	color: #07a; } .token.function, .token.class-name { 	color: #DD4A68; } .token.regex, .token.important, .token.variable { 	color: #e90; } .token.important, .token.bold { 	font-weight: bold; } .token.italic { 	font-style: italic; } .token.entity { 	cursor: help; }</style>
+<style>:root{color:#333;font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-size:15px;line-height:1.5;--mono-font-size: 13px;--indent: 1rem;--list-indent: 1.5rem;--dfn-indent: 0rem}@media (min-width: 720px){:root{font-size:17px;--mono-font-size: 15px;--indent: 2rem;--list-indent: 2rem;--dfn-indent: 2rem}}body{margin:3rem 0 3rem}article{margin:0 1rem}@media (min-width: 720px){body{margin:6rem auto 3rem;max-width:800px;padding-left:75px;padding-right:clamp(0px,calc((100vw - 800px) * .25),75px)}}.source-link{display:none}@media screen and (min-width: 720px){.source-link{display:block;position:absolute;width:18px;fill:#ccc;opacity:.3}.source-link:hover{opacity:1}}.outdated-selection-link,.selection-link{position:absolute;display:block;color:#fff;--selection-background-color: #cacee0;background:var(--selection-background-color);border-radius:4px;font-size:36px;height:23px;line-height:48px;text-align:center;text-decoration:none;width:25px;user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none}.outdated-selection-link:hover,.selection-link:hover{text-decoration:none}.outdated-selection-link:before,.selection-link:before{border:5px solid transparent;content:"";height:0;margin-top:-5px;margin-right:-5px;position:absolute;right:1px;top:50%;width:0}@media (max-width: 719px){.outdated-selection-link:before,.selection-link:before{border-bottom-color:var(--selection-background-color);border-top:0;right:50%;top:1px}}@media (min-width: 720px){.outdated-selection-link:before,.selection-link:before{border-left-color:var(--selection-background-color);border-right:0;right:1px;top:50%}}.selection-link:hover{--selection-background-color: #3b5998}.outdated-selection-link{--selection-background-color: #f0babe;font-size:21px;font-weight:800;line-height:27px}.outdated-selection-link:hover:after{content:"This selection content has changed since this link was created.";font:9pt/11pt Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;position:absolute;display:block;white-space:nowrap;padding:2px 5px 1px;top:-20px;background:black;color:#fff}a{color:#3b5998;text-decoration:none}a:hover{text-decoration:underline}img{max-width:100%}dl{margin:1rem 0 1rem var(--dfn-indent)}dd{margin:.25em 0 .5em var(--indent)}dd+dd{margin-top:1rem}dfn,.spec-ref{font-style:italic}dfn>a,.spec-ref>a{color:inherit}h1,h2,h3,h4,h5,h6{font-weight:bold;margin:3em 0 1em;position:relative}@media (min-width: 720px){header>h1{margin:6em 0 3em}}h1{font-size:1.5em;margin-top:5em}h2,h3{font-size:1.25em}h4,h5,h6{font-size:1em}section{padding-top:1rem;margin-top:-1rem}section.subsec>h6{margin-top:2em}section.subsec>h6>a{color:#333}section .spec-secid{margin-right:1ex}@media (min-width: 720px){section .spec-secid{position:absolute;right:100%;text-align:right;white-space:nowrap}}footer{font-size:75%;opacity:.5;text-align:center;margin-top:12rem}.spec-toc{margin:1rem 0 3rem}.spec-toc .title{content:"Contents";display:block;font-weight:bold;margin:5em 0 1em}.spec-toc .spec-secid{margin-right:1ex}.spec-toc ol{list-style:none;padding-left:0;margin-top:0;margin-bottom:0}.spec-toc ol ol{list-style:none;padding-left:2ex;margin-bottom:.25em}.spec-toc li{position:relative;padding:5px 0 0 30px;margin:-5px 0 0 -30px}.spec-toc a{color:#333}.spec-toc a:hover{text-decoration:none}.spec-toc a .spec-secid{color:#3b5998}.spec-toc a:hover .spec-secid{text-decoration:underline}.spec-toc .toggle{display:none}.spec-toc .toggle+label{cursor:pointer;left:6px;opacity:1;padding:5px 6px 5px 7px;position:absolute;top:6px;transform:rotate(0deg);transition:all .18s ease-in-out}.spec-toc .toggle+label:after{border-color:transparent transparent transparent #bbc;border-style:solid;border-width:6px 0 6px 7px;content:" ";display:block;height:0;width:0}@media (pointer: fine){.spec-toc .toggle+label{left:10px;padding:3px 5px 3px 6px;top:8px}}.spec-toc .toggle:checked+label{transform:rotate(90deg)}@media (hover: hover){.spec-toc li:not(:hover)>.toggle:checked+label{opacity:0}}.spec-toc .toggle:not(:checked)~ol{max-height:0;overflow:hidden;margin:0}.spec-sidebar-toggle{display:none}.spec-sidebar-toggle+label>.spec-sidebar-button{position:fixed;right:0;top:0;padding:10px 15px;font-size:30px;color:#000000b3;z-index:2;cursor:pointer;user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none}.spec-sidebar-toggle:checked+label:after{content:"";position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0}.spec-sidebar{display:none;position:fixed;right:0;top:0;width:min(320px,calc(100vw - 48px));font-size:14px;line-height:1.75;overflow-y:scroll;height:100%;padding:0 0 5rem 30px;box-sizing:border-box;background:#f0f0f0;box-shadow:inset 1px 0 rgba(0,0,0,.05),-4px 0 8px -2px rgba(0,0,0,.04);overscroll-behavior:contain}.spec-sidebar{user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none}.spec-sidebar-toggle:checked~.spec-sidebar{display:block}.spec-sidebar .viewing>a:after{color:#8b9;content:"\2022";margin-left:1ex}@media (min-width: 1220px){.spec-sidebar-toggle+label{display:none}.spec-sidebar{display:block;box-shadow:inset 1px 0 rgba(0,0,0,.05),inset 4px 0 8px -2px rgba(0,0,0,.08)!important}body{padding-right:345px}}.spec-note{background:#FEFEF3;border-left:solid 4px #F4E925;margin:1rem -1rem;min-width:70vw;padding:8px 1rem 12px calc(1rem - 4px);width:-moz-fit-content;width:-webkit-fit-content;width:fit-content}@media (min-width: 720px){.spec-note{min-width:416px}}.spec-note>a:first-child{color:#6c6613;display:block;font:italic 11pt/18pt Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;opacity:.6;user-select:none}.spec-todo{color:#666;margin:1em 0 1em 5em;min-height:1em}.spec-todo::before{content:"todo";display:block;float:left;margin-left:-5em;text-transform:uppercase}.spec-index ol{list-style-type:none;margin:0 0 0 var(--indent);padding:0;column-width:210px;column-gap:var(--indent)}.spec-index ol li{width:min-content;white-space:nowrap}pre,code{font-family:Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;font-size:var(--mono-font-size);font-weight:inherit}code{background:rgba(0,0,0,.03);margin:-2px -1px;padding:3px 3px;white-space:pre-wrap}pre>code{background:none;font-weight:inherit;margin:0;padding:0;white-space:pre}pre{background:#FAFAFA;border-left:solid 4px #E9E9E9;margin:1rem -1rem;min-width:70vw;padding:12px 1rem 12px calc(1rem - 4px);width:-moz-fit-content;width:-webkit-fit-content;width:fit-content;max-width:calc(100vw - 2rem);overflow-y:scroll}@media (min-width: 720px){pre{min-width:40ch}}.spec-example{background:#FAFAFF;border-left:solid 4px #BBBBFF;padding-top:8px}.spec-counter-example{background:#FFFAFA;border-left:solid 4px #FFBBBB;padding-top:8px}.spec-example>a,.spec-counter-example>a{display:block;font:italic 11pt/18pt Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;opacity:.6;user-select:none}.spec-counter-example>a{color:#98593b}table{border-collapse:collapse}th{background-color:#f9f9f9}td,th{border:1px solid #D0D0D0;padding:.4em;vertical-align:baseline}ol,ul{padding-left:var(--list-indent)}li>ol,li>ul{margin-top:.25em;margin-bottom:.5em}li+li{margin-top:.25em}li.task{list-style-type:none;position:relative}li.task>input:first-child{margin-left:0;position:absolute;transform:translateX(calc(-100% - 1ch))}ins{background-color:#00c81e14;text-decoration:none}del{background-color:#c8000014}.spec-added,.spec-removed{border-left:4px solid;margin-left:-18px;padding-left:14px}.spec-added{border-color:#396}.spec-removed{border-color:#933;text-decoration:line-through}.spec-keyword{font-weight:bold}.spec-string{font-family:Consolas,Monaco,monospace;font-size:85%;white-space:pre}var{font-style:italic}*[data-name]{transition:.15s background ease-out;border-radius:2px;padding:0 3px;margin:0 -3px}.spec-semantic,.spec-algo{margin:1rem 0 1rem var(--dfn-indent)}.spec-semantic>.spec-nt::after,.spec-algo>.spec-call:first-child::after{content:":";font-style:normal;font-weight:bold;margin-left:1ex}.spec-semantic ol,.spec-semantic ol ol ol ol,.spec-algo ol,.spec-algo ol ol ol ol{list-style-type:decimal}.spec-semantic ol ol,.spec-semantic ol ol ol ol ol,.spec-algo ol ol,.spec-algo ol ol ol ol ol{list-style-type:lower-alpha}.spec-semantic ol ol ol,.spec-semantic ol ol ol ol ol ol,.spec-algo ol ol ol,.spec-algo ol ol ol ol ol ol{list-style-type:lower-roman}.spec-call>a{color:inherit}.spec-production{margin:1rem 0 1rem var(--dfn-indent)}.spec-production>.spec-nt::after{content:":";font-style:normal;font-weight:bold;margin:0 1ex}.spec-semantic.d2>.spec-nt::after,.spec-production.d2>.spec-nt::after{content:"::"}.spec-semantic.d3>.spec-nt::after,.spec-production.d3>.spec-nt::after{content:":::"}.spec-production>.spec-rhs{line-height:1.1;margin:.25em 0 .5em calc(2 * var(--indent));text-indent:calc(-1 * var(--indent))}.spec-semantic>.spec-rhs{display:inline-block;text-indent:calc(-1 * var(--indent));margin-left:calc(1ex + var(--indent))}.spec-rhs>*{text-indent:0}.spec-oneof{display:inline}.spec-oneof::before{content:"one of";font-style:normal;font-weight:bold}.spec-oneof-grid{max-width:calc(100vw - 2rem);overflow:scroll;margin:-1ex -1rem;padding:1ex 1rem}.spec-oneof-grid>table{margin-left:var(--indent)}.spec-oneof .spec-rhs{border:none;margin:0;padding:0 0 0 1rem;vertical-align:baseline;white-space:pre}.spec-oneof .spec-rhs:first-child{padding:0}.spec-rhs .spec-constrained:not(:first-child),.spec-rhs .spec-quantified:not(:first-child),.spec-rhs .spec-nt:not(:first-child),.spec-rhs .spec-t:not(:first-child),.spec-rhs .spec-rx:not(:first-child),.spec-rhs .spec-prose:not(:first-child),.spec-rhs .spec-empty:not(:first-child),.spec-rhs .spec-lookahead:not(:first-child){margin-left:1ex;display:inline-block}.spec-condition{font-size:85%}.spec-condition::before{content:"[if "}.spec-condition.not::before{content:"[if not "}.spec-condition::after{content:"]"}.spec-empty,.spec-prose{color:#666}.spec-nt{font-style:italic}.spec-nt>a{color:inherit}.spec-quantifiers,.spec-params{font-size:65%;font-style:normal;vertical-align:sub}.spec-quantifier.list{color:#3348d3}.spec-quantifier.optional{color:#83238e}.spec-params,.spec-condition{color:#1c7758}.spec-params::before{content:"["}.spec-params::after{content:"]"}.spec-quantifier:not(:last-child)::after,.spec-param:not(:last-child)::after{color:#666;content:", "}.spec-param.conditional::before{content:"?"}.spec-param.negated::before{content:"!"}.spec-t,.spec-rx{color:#333;font-family:monospace;font-weight:bold}.spec-butnot::before{color:#666;content:"but not";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-weight:normal;margin-right:1ex}.spec-butnot>*:not(:first-child)::before{color:#666;content:"or";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-weight:normal;margin-right:1ex}.spec-rhs .spec-oneof::before,.spec-rhs .spec-butnot::before{margin-left:1ex}.spec-lookahead>*{margin:0!important}.spec-lookahead>*:not(:first-child)::before{color:#666;content:", ";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-style:normal;font-weight:normal}.spec-lookahead::before{color:#666;content:"[lookahead = ";font-family:Cambria,"Palatino Linotype",Palatino,"Liberation Serif",serif;font-style:normal;font-weight:normal}.spec-lookahead.not::before{content:"[lookahead \2260  "}.spec-lookahead.set::before{content:"[lookahead \2208  {";margin-right:0}.spec-lookahead.set.not::before{content:"[lookahead \2209  {"}.spec-lookahead.ntset::before{content:"[lookahead \2208  ";margin-right:0}.spec-lookahead.ntset.not::before{content:"[lookahead \2209  "}.spec-lookahead::after{color:#666;content:"]"}.spec-lookahead.set::after{content:"}]"}.token.atrule,.token.attr-value,.token.keyword,.token.property,.token.selector,.token.attr-name,.token.builtin,.token.entity,.token.url,.token.inserted{color:#1b1994b0;background:none}.token.tag,.token.boolean,.token.number,.token.string,.token.char,.token.constant,.token.symbol,.token.regex,.token.important,.token.variable,.token.function,.token.class-name,.token.deleted{color:#a20764bd}.token.comment,.token.prolog,.token.doctype,.token.cdata,.token.description{color:inherit;opacity:.3}.token.punctuation{color:inherit;opacity:.5}.token.operator,.token.namespace{color:inherit;opacity:.7}</style>
+<script>(function(){var r,a=[];document.addEventListener("readystatechange",function(){document.readyState==="interactive"&&u()});function u(){var n=document.querySelector('label[for="spec-sidebar-toggle"]');n.addEventListener("scroll",o),n.addEventListener("touchmove",o);function o(d){d.preventDefault()}for(var t=document.getElementsByTagName("section"),e=0;e<t.length;e++)t[e].getAttribute("secid")&&a.push(t[e]);var i=window.scrollY,c=!1;window.addEventListener("scroll",function(d){i=window.scrollY,c||(c=!0,window.requestAnimationFrame(function(){s(i),c=!1}))})}function s(n){for(var o=n+document.documentElement.clientHeight/4,t,e=a.length-1;e>=0;e--)if(a[e].offsetTop<o){t=a[e];break}var i=t&&t.getAttribute("secid");i!==r&&(r&&l(r,!1),i&&l(i,!0),r=i)}function l(n,o){document.getElementById("_sidebar_"+n).className=o?"viewing":"";for(var t=n.split(".");t.length;){var e=document.getElementById("_toggle_"+t.join("."));e&&(e.checked=o),t.pop()}}s(window.scrollY);})();</script>
+<script>(function(){var n=document.getElementsByTagName("style")[0].sheet,e;function u(){e&&(n.deleteRule(e),e=void 0)}function d(t){u(),e=n.insertRule('*[data-name="'+t+'"] { background: rgba(230,215,0,0.12); }',n.cssRules.length)}document.documentElement.addEventListener("mouseover",function(t){var a=t.target.attributes["data-name"];a&&d(a.value)});document.documentElement.addEventListener("mouseout",u);})();</script>
+<script>(function(){var R="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",o,p,r,g;document.addEventListener("selectionchange",E);window.addEventListener("resize",C);window.addEventListener("hashchange",x);window.addEventListener("load",x);function S(n){y(new URL(n.target.href))}function x(){y(window.location)}function y(n){var e=n.hash.match(/^#sel-([A-Za-z0-9-_]+)$/);if(!!e){g=e[1],r=k(g);var t=r.getBoundingClientRect(),d=Math.max(20,Math.floor((window.innerHeight-t.height)*.4));window.scrollTo(0,window.scrollY+t.y-d);var c=document.getSelection();c.empty(),c.addRange(r),C()}}function E(n){var e=document.getSelection();if(e.isCollapsed)o&&(o.parentNode.removeChild(o),o=null);else{var t=e.getRangeAt(0);(!r||t.compareBoundaryPoints(Range.START_TO_START,r)!==0||t.compareBoundaryPoints(Range.END_TO_END,r)!==0)&&(r=t,g=B(r),C())}}function C(){if(!!r){p||(p=document.getElementsByTagName("article")[0]),o||(o=document.createElement("a"),document.body.appendChild(o)),o.href="#sel-"+g,o.onclick=S,o.className=r.isOutdated?"outdated-selection-link":"selection-link",o.innerText=r.isOutdated?"!":"\u201F";var n=window.innerWidth<720,e=r.getBoundingClientRect();if(n)o.style.left=Math.floor(e.x+e.width/2+window.scrollX-13)+"px",o.style.top=Math.floor(e.bottom+window.scrollY+10)+"px";else{var t=p.getBoundingClientRect().x;o.style.left=Math.floor(t+window.scrollX-37)+"px",o.style.top=Math.floor(e.y+window.scrollY-3)+"px"}}}function B(n){var e="",t=N(n.startContainer),d=N(n.endContainer),c=M(t,d);return l(c),l(t.slice(c.length).concat(n.startOffset)),l(d.slice(c.length).concat(n.endOffset)),i(L(n.toString())),e;function i(a){do e+=R[a&31|(a>31?32:0)],a>>=5;while(a>0)}function l(a){i(a.length);for(var h=0;h<a.length;h++)i(a[h])}}function k(n){for(var e=new Array(64),t=0;t<64;t++)e[R.charCodeAt(t)]=t;var d=0,c=m(),i=m(),l=m(),a=w(),h=i.pop(),P=O(c.concat(i)),T=l.pop(),A=O(c.concat(l)),u=document.createRange();return u.setStart(P,h),u.setEnd(A,T),u.isOutdated=a!==void 0&&a!==L(u.toString()),u;function w(){for(var s=0,v=0;d<n.length;){var f=e[n.charCodeAt(d++)];if(s|=(f&31)<<v,v+=5,f<32)return s}}function m(){var s=w();if(s!=null){for(var v=new Array(s),f=0;f<s;f++)v[f]=w();return v}}}function N(n){for(var e=[];n!=document.body;){var t=n.parentNode;e.push(Array.prototype.indexOf.call(t.childNodes,n)),n=t}return e.reverse()}function O(n){for(var e=document.body,t=0;t<n.length&&e;t++)e=e.childNodes[n[t]];return e}function M(n,e){for(var t=0;t<n.length&&t<e.length&&n[t]===e[t];)t++;return n.slice(0,t)}function L(n){for(var e=2166136261,t=0;t<n.length;++t)e^=n.charCodeAt(t),e+=(e<<1)+(e<<4)+(e<<7)+(e<<8)+(e<<24);return(e>>15^e)&32767}})();</script>
+</head>
+<body><article>
+<header>
+<h1>GraphQL Cost Directives</h1>
+<section id="intro">
+<div id="note-0f247" class="spec-note">
+<a href="#note-0f247">Note</a>
+This document is a DRAFT. It is being published to solicit feedback. It is a &ldquo;live document&rdquo; that can change whenever feedback is given and accepted.</div>
+<p>This first draft of this document is © Copyright IBM Corp. 2021.</p>
+</section>
+<nav class="spec-toc">
+<div class="title">Contents</div>
+<ol>
+<li><a href="#sec-Goals"><span class="spec-secid">1</span>Goals</a></li>
+<li><a href="#sec-Collaboration"><span class="spec-secid">2</span>Collaboration</a></li>
+<li><a href="#sec-Example"><span class="spec-secid">3</span>Example</a></li>
+<li><a href="#sec-Reserved-Directives"><span class="spec-secid">4</span>Reserved Directives</a></li>
+<li><a href="#sec-Cost-Analysis"><span class="spec-secid">5</span>Cost Analysis</a><ol>
+<li><a href="#sec-Methods-of-Cost-Analysis"><span class="spec-secid">5.1</span>Methods of Cost Analysis</a><ol>
+<li><a href="#sec-Static-Query-Analysis"><span class="spec-secid">5.1.1</span>Static Query Analysis</a></li>
+<li><a href="#sec-Dynamic-Query-Analysis"><span class="spec-secid">5.1.2</span>Dynamic Query Analysis</a></li>
+<li><a href="#sec-Query-Response-Analysis"><span class="spec-secid">5.1.3</span>Query Response Analysis</a></li>
+</ol>
+</li>
+<li><a href="#sec-Inputs-to-Cost-Analysis"><span class="spec-secid">5.2</span>Inputs to Cost Analysis</a></li>
+<li><a href="#sec-Results-of-Cost-Analysis"><span class="spec-secid">5.3</span>Results of Cost Analysis</a><ol>
+<li><a href="#sec-Counts"><span class="spec-secid">5.3.1</span>Counts</a><ol>
+<li><a href="#sec-Type-Counts"><span class="spec-secid">5.3.1.1</span>Type Counts</a></li>
+<li><a href="#sec-Input-Type-Counts"><span class="spec-secid">5.3.1.2</span>Input Type Counts</a></li>
+<li><a href="#sec-Field-Counts"><span class="spec-secid">5.3.1.3</span>Field Counts</a></li>
+<li><a href="#sec-Input-Field-Counts"><span class="spec-secid">5.3.1.4</span>Input Field Counts</a></li>
+<li><a href="#sec-Argument-Counts"><span class="spec-secid">5.3.1.5</span>Argument Counts</a></li>
+<li><a href="#sec-Directive-Counts"><span class="spec-secid">5.3.1.6</span>Directive Counts</a></li>
+</ol>
+</li>
+<li><a href="#sec-Costs"><span class="spec-secid">5.3.2</span>Costs</a><ol>
+<li><a href="#sec-Type-Cost"><span class="spec-secid">5.3.2.1</span>Type Cost</a></li>
+<li><a href="#sec-Field-Cost"><span class="spec-secid">5.3.2.2</span>Field Cost</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#sec-Introspection"><span class="spec-secid">6</span>Introspection</a><ol>
+<li><a href="#sec-Introspection-of-Cost-Analysis-Results"><span class="spec-secid">6.1</span>Introspection of Cost Analysis Results</a><ol>
+<li><a href="#sec-Naming"><span class="spec-secid">6.1.1</span>Naming</a></li>
+<li><a href="#sec-__cost"><span class="spec-secid">6.1.2</span>__cost</a></li>
+<li><a href="#sec-regexName-Arguments"><span class="spec-secid">6.1.3</span>regexName Arguments</a></li>
+<li><a href="#sec-regexPath-Arguments"><span class="spec-secid">6.1.4</span>regexPath Arguments</a></li>
+<li><a href="#sec-requestCosts-and-responseCosts"><span class="spec-secid">6.1.5</span>requestCosts and responseCosts</a></li>
+</ol>
+</li>
+<li><a href="#sec-introspectionOnly"><span class="spec-secid">6.2</span>introspectionOnly</a></li>
+<li><a href="#sec-NoSchemaIntrospectionCustomRule"><span class="spec-secid">6.3</span>NoSchemaIntrospectionCustomRule</a></li>
+<li><a href="#sec-Introspection-of-Cost-Directives"><span class="spec-secid">6.4</span>Introspection of Cost Directives</a></li>
+</ol>
+</li>
+<li><a href="#sec-The-Cost-Directive"><span class="spec-secid">7</span>The Cost Directive</a><ol>
+<li><a href="#sec-weight"><span class="spec-secid">7.1</span>weight</a></li>
+<li><a href="#sec-The-Cost-Directive.Locations"><span class="spec-secid">7.2</span>Locations</a></li>
+</ol>
+</li>
+<li><a href="#sec-The-List-Size-Directive"><span class="spec-secid">8</span>The List Size Directive</a><ol>
+<li><a href="#sec-assumedSize"><span class="spec-secid">8.1</span>assumedSize</a></li>
+<li><a href="#sec-slicingArguments"><span class="spec-secid">8.2</span>slicingArguments</a></li>
+<li><a href="#sec-sizedFields"><span class="spec-secid">8.3</span>sizedFields</a></li>
+<li><a href="#sec-requireOneSlicingArgument"><span class="spec-secid">8.4</span>requireOneSlicingArgument</a></li>
+<li><a href="#sec-The-List-Size-Directive.Locations"><span class="spec-secid">8.5</span>Locations</a></li>
+</ol>
+</li>
+<li><a href="#sec-Validation"><span class="spec-secid">9</span>Validation</a><ol>
+<li><a href="#sec-Cost-Directive"><span class="spec-secid">9.1</span>Cost Directive</a><ol>
+<li><a href="#sec-No-Cost-on-Interface-Fields"><span class="spec-secid">9.1.1</span>No Cost on Interface Fields</a></li>
+</ol>
+</li>
+<li><a href="#sec-List-Size-Directive"><span class="spec-secid">9.2</span>List Size Directive</a><ol>
+<li><a href="#sec-Valid-List-Size-Target"><span class="spec-secid">9.2.1</span>Valid List Size Target</a></li>
+<li><a href="#sec-Valid-Sized-Fields-Target"><span class="spec-secid">9.2.2</span>Valid Sized Fields Target</a></li>
+<li><a href="#sec-Valid-Slicing-Arguments-Target"><span class="spec-secid">9.2.3</span>Valid Slicing Arguments Target</a></li>
+<li><a href="#sec-Valid-Assumed-Size"><span class="spec-secid">9.2.4</span>Valid Assumed Size</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</nav>
+</header>
+<section id="sec-Goals" secid="1">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Goals">1</a></span>Goals</h1>
+<p>This specification defines a set of GraphQL SDL directives that captures information useful for expressing the cost of executing GraphQL queries.</p>
+<div id="note-dc29d" class="spec-note">
+<a href="#note-dc29d">Note</a>
+The <a href="#sec-Goals">Goals</a>, <a href="#sec-Example">Example</a>, and <a href="#sec-Introspection">Introspection</a> sections, and all notes like this one, are non-normative and intended to provide a good understanding of the motivation for this specification, as well as hints that might benefit implementors.</div>
+<p>The spec proposes to standardize these directives, with the following goals:</p>
+<ul>
+<li><em>Servers</em> can express what is costly for them in a standard way.</li>
+<li><em>Clients</em> can know in advance not only the schema supported, but also which parts of it are more costly.</li>
+<li><em>Middleware</em> can uniformly enforce threat protection, rate limiting and monetization features across disparate GraphQL servers and while serving different GraphQL Clients.</li>
+<li><em>Cost analysis tools</em> across programming languages and frameworks can use the same standardized directives.</li>
+<li><em>GraphQL schemas</em>, both SDL documents and introspection results, can work with a variety of tools by using these directives.</li>
+<li><span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost analysis</a></span> can be applied as a static analysis on GraphQL queries or their responses, or as a dynamic calculation during query execution.</li>
+</ul>
+</section>
+<section id="sec-Collaboration" secid="2">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Collaboration">2</a></span>Collaboration</h1>
+<p>The <a href="https://ibm.github.io/graphql-specs/">specification landing page</a> has some short videos explaining parts of this specification, including motivation for why this work is important.</p>
+<p>For communication, we have created a channel <a href="https://graphql.slack.com/archives/C01KB124C58">#cost-analysis</a> on the GraphQL Foundation&rsquo;s Slack workspace to invite anyone to openly discuss these ideas.</p>
+<p>Alternatively, you can directly message us on Slack. This spec is largely written by <a href="https://graphql.slack.com/archives/DUQ3QTHCH">Morris Matsa</a> based on work he did for years with spec co-author <a href="https://github.com/ErikWittern/">Erik Wittern</a> and through several iterations with our customers. We also have significant contributions from <a href="https://github.com/IgorBelyi">Igor Belyi</a> and <a href="https://github.com/andy11an">Andy Chang</a>, and collaboration with <a href="https://graphql.slack.com/archives/D023ZQRFY21">Jim Laredo</a> and <a href="https://graphql.slack.com/archives/D023W4652J2">Alan Cha</a>. We hope others will join us.</p>
+</section>
+<section id="sec-Example" secid="3">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example">3</a></span>Example</h1>
+<p>An example of an SDL document containing the proposed directives is:</p>
+<pre id="example-c3975" class="spec-example" data-language="graphql"><a href="#example-c3975">Example № 1</a><code><span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String
+  <span class="token attr-name">age</span><span class="token punctuation">:</span> Int <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">users</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Int<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>How expensive or costly are various fields? Really this depends on how costly it is to run the resolver functions on the GraphQL server. With the &lsquo;raw&rsquo; SDL, or GraphQL schema, we don&rsquo;t know, but with the added directives we know that:</p>
+<ul>
+<li>There is a <code>@cost</code> directive on the <code>User.age</code> field with a weight of <code>2.0</code>, indicating that the total cost of running all resolvers on this query should be increased by <code>2.0</code> for every time this resolver is run.</li>
+<li>There is no <code>@cost</code> directive on the <code>Query.users</code> field, so the weight is assumed to be <code>1.0</code>.</li>
+<li>The <code>@listSize</code> directive is used to define that the <code>max</code> argument of the field <code>Query.users</code> is a <a href="https://graphql.org/learn/pagination/#slicing">slicing argument</a> - therefore cost analysis can rely on that argument&rsquo;s value in a query to know an upper bound of how many <code>User</code> types are returned by the <code>Query.users</code> field.</li>
+</ul>
+<p>We can consider how to apply this enhanced schema to the following example query:</p>
+<pre id="example-e5fe6" class="spec-example" data-language="graphql"><a href="#example-e5fe6">Example № 2</a><code><span class="token keyword">query</span> Example <span class="token punctuation">{</span>
+  users <span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    age
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The <span class="spec-ref"><a href="#field-cost" data-name="field-cost">field cost</a></span> of this query can be <em>statically analyzed</em> (see <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span>) as <code>11.0</code>, as the query returns at most:</p>
+<ul>
+<li>One <code>Query</code> object type, which then runs the resolver <code>Query.users</code> once. That resolver has a cost of <code>1.0</code>.</li>
+<li>Five <code>User</code> object types which each run the resolver <code>User.age</code> which has a cost of <code>2.0</code>.</li>
+</ul>
+<p>When this query is actually executed using the GraphQL engine, it might not have five users, so as an example suppose that it has three users and each one has an age. Then the actual cost of executing this query can be <em>dynamically analyzed</em> (see <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span>) to be <code>7.0</code>:</p>
+<ul>
+<li>One <code>Query</code> object type runs the resolver <code>Query.users</code> once with a cost of <code>1.0</code>.</li>
+<li>Three <code>User</code> object types which each run the resolver <code>User.age</code> with cost <code>2.0</code>.</li>
+</ul>
+<p>Besides dynamically summing up the field cost to <code>7.0</code> as we run the execution engine, we could also <em>analyze the resulting example JSON data</em> (see <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span>):</p>
+<pre id="example-d0e4c" class="spec-example" data-language="json"><a href="#example-d0e4c">Example № 3</a><code><span class="token punctuation">{</span> <span class="token property">"users"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span> <span class="token property">"age"</span> <span class="token operator">:</span> <span class="token number">33</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> <span class="token property">"age"</span> <span class="token operator">:</span> <span class="token number">45</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span> <span class="token property">"age"</span> <span class="token operator">:</span> <span class="token number">27</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In this case, we can &ldquo;reverse engineer&rdquo; the cost to have been <code>7.0</code>:</p>
+<ul>
+<li>The <code>Query.users</code> resolver must have run once with a cost of <code>1.0</code>.</li>
+<li>The <code>User.age</code> resolver must have run three times with each weight being <code>2.0</code>.</li>
+</ul>
+<p>While a static analysis of the query calculates a maximum (upper-bound) cost of <code>11.0</code> unlike both a dynamic cost calculation and a post-facto static analysis of the resulting data which calculates a cost of <code>7.0</code>, there is no contradiction and both numbers are interesting:</p>
+<ul>
+<li>The static analysis of the Query gives us an upper bound on how expensive or costly it <em>might be</em> to execute this query on our GraphQL server.</li>
+<li>The dynamic or post-facto cost calculation tells us how expensive it <em>actually was</em> to execute this query on our GraphQL server.</li>
+</ul>
+<p>Here are a few examples of how these cost calculations can be used:</p>
+<ul>
+<li>Static Query Analysis can help:<ul>
+<li>An <em>API Consumer</em> hold back from sending a possibly expensive query.</li>
+<li><em>GraphQL Middleware</em> and <em>Servers</em> with threat protection by refusing possibly expensive queries.</li>
+</ul>
+</li>
+<li>Dynamic Query Analysis or Query Response Analysis can help:<ul>
+<li><em>GraphQL Middleware</em> with rate limiting certain API consumers over time, or charging them per use (aka monetization).</li>
+<li><em>GraphQL Servers</em> with analytics calculations about how expensive transactions were.</li>
+</ul>
+</li>
+</ul>
+<p>All of these advantages can be achieved across the three methods of cost analysis by adding the same simple <code>@cost</code> and <code>@listSize</code> directives to the GraphQL schema.</p>
+</section>
+<section id="sec-Reserved-Directives" secid="4">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Reserved-Directives">4</a></span>Reserved Directives</h1>
+<p>A GraphQL server which conforms to this spec must reserve certain GraphQL directives and GraphQL directive names. In particular, this spec creates guidelines for the following directives:</p>
+<ul>
+<li>A directive named <var data-name="cost">cost</var>.</li>
+<li>A directive named <var data-name="listSize">listSize</var>.</li>
+</ul>
+</section>
+<section id="sec-Cost-Analysis" secid="5">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Cost-Analysis">5</a></span>Cost Analysis</h1>
+<p><dfn id="cost-analysis"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></dfn> is the process of analyzing a GraphQL transaction with the goal of quantifying the cost or expense of its execution. The process of cost analysis results in calculated counts and costs of running that query.</p>
+<section id="sec-Methods-of-Cost-Analysis" secid="5.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Methods-of-Cost-Analysis">5.1</a></span>Methods of Cost Analysis</h2>
+<p>There are different <dfn id="methods-of-cost-analysis"><a href="#methods-of-cost-analysis" data-name="methods-of-cost-analysis">Methods of Cost Analysis</a></dfn>:</p>
+<ul>
+<li>When conducted before executing the query, it is called <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span>.</li>
+<li>When conducted during query execution, it is referred to as <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span>.</li>
+<li>When conducted after query execution, it is <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span>.</li>
+</ul>
+<p>Different methods of <span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></span> offer different semantics of precisely what their results mean, and thus do not always produce the same count and cost values. For example, <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span> could say that ten <code>User</code>s <em>might</em> be returned, where <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span> would show that only three <code>User</code>s were actually returned. Alternatively, <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span> could say that an <code>Address</code> with a <code>Street</code> and <code>City</code> <em>might</em> be returned, where <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span> would show that the entire <code>Address</code> was returned as <code>null</code> and the <code>Street</code> and <code>City</code> resolvers were never executed.</p>
+<p>The three types of <span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></span> have inherent tradeoffs, and the relative strength of their advantages depends on the environment in which GraphQL is used. Therefore, different methods will be appropriate at different times, and sometimes it can be appropriate to run multiple methods of cost analysis. One environment could run <em>Static Cost Analysis</em> to protect against unsafe queries and <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span> to charge an API Consumer via monetization. Another environment might prefer <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span> to get a tight bound on the real cost without adding any load to the backend server. Many combinations are possible.</p>
+<section id="sec-Static-Query-Analysis" secid="5.1.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Static-Query-Analysis">5.1.1</a></span>Static Query Analysis</h3>
+<p><dfn id="static-query-analysis"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></dfn> is the process of conducting a static analysis on the input GraphQL Query, with full knowledge of the GraphQL schema for the GraphQL server.</p>
+<p>The results of Static Query Analysis should always produce an upper bound on the results calculated by <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span> and <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span>, as they are based on calculating what <em>might</em> happen and picking the most conservative values. This is a very useful property for <em>a-priori</em> decisions in security-sensitive settings. </p>
+<p>Static Query Analysis is the least accurate of the three types of <span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></span>, but it also has the large advantage of being the only one to happen before spending compute and other resources while running the execution engine.</p>
+<p>Static Query Analysis can be used, for example, to allow or disallow queries to be executed based on configured rate limit or threat prevention policies. It can be applied in either GraphQL backends or dedicated middleware components.</p>
+</section>
+<section id="sec-Dynamic-Query-Analysis" secid="5.1.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Dynamic-Query-Analysis">5.1.2</a></span>Dynamic Query Analysis</h3>
+<p><dfn id="dynamic-query-analysis"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></dfn> is the process of counting dynamically as the execution engine produces parts of the result data. The results are exact counts of how much data is produced. Errors do not produce data.</p>
+<div id="note-7b5b8" class="spec-note">
+<a href="#note-7b5b8">Note</a>
+It is significant that errors are not included in count and cost data. The detection of errors should be included in any full strategy for dealing with Threat Protection, Rate Limiting, or Monetization.</div>
+<p>Dynamic Query Analysis can be used on a GraphQL server to abort query execution when certain cost thresholds are reached for Threat Protection, or for Rate Limiting.</p>
+</section>
+<section id="sec-Query-Response-Analysis" secid="5.1.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Query-Response-Analysis">5.1.3</a></span>Query Response Analysis</h3>
+<p><dfn id="query-response-analysis"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></dfn> is the process of <span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></span> running as an analysis of the result from the execution engine. This analysis uses three inputs:</p>
+<ul>
+<li>The GraphQL schema for the GraphQL server</li>
+<li>The GraphQL query that produced this result data</li>
+<li>The result data itself</li>
+</ul>
+<p>By combining these three input sources, the Query Response Analysis can compute a much tighter estimate of the actual counts and cost than would have been computed in <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span>.</p>
+<p>Query Response Analysis knows exact sizes of lists returned, which is the largest unknown quantity in <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span>, however it is not always possible to know exactly which types are returned without control of the execution engine, therefore counts and costs are still an upper bound for Query Response Analysis, although in practice they are usually exact, and at least a much tighter bound.</p>
+<p>Query Response Analysis can be used in GraphQL backends or dedicated middleware components to accurately update remaining rates towards an enforced rate limit.</p>
+</section>
+</section>
+<section id="sec-Inputs-to-Cost-Analysis" secid="5.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Inputs-to-Cost-Analysis">5.2</a></span>Inputs to Cost Analysis</h2>
+<p>All three <span class="spec-ref"><a href="#methods-of-cost-analysis" data-name="methods-of-cost-analysis">Methods of Cost Analysis</a></span> include an input of the GraphQL schema. For all of these methods, the unenhanced schema would not be sufficient to calculate the cost. Therefore, the input schema includes both the schema constructs which are part of the GraphQL specification, and additional information in the form of directives on that schema which provide:</p>
+<ul>
+<li>Numerical <em>Weights</em> on various schema constructs. These are used to calculate weighted sums for the result <em>Costs</em>.</li>
+<li><em>List Size configuration</em> to aid in bounding the sizes of returned lists.</li>
+</ul>
+<p>The <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span> method also uses an input of the transaction&rsquo;s GraphQL query, while the <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span> uses as inputs both the GraphQL query and the GraphQL response. <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span> can be embedded into the GraphQL execution engine with access to its state during execution.</p>
+</section>
+<section id="sec-Results-of-Cost-Analysis" secid="5.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Results-of-Cost-Analysis">5.3</a></span>Results of Cost Analysis</h2>
+<p>Each of the three <span class="spec-ref"><a href="#methods-of-cost-analysis" data-name="methods-of-cost-analysis">Methods of Cost Analysis</a></span> yields two kinds of results: <span class="spec-ref"><a href="#counts" data-name="counts">Counts</a></span> and <em>Costs</em>. These two kinds of results from Cost Analysis MAY be provided as outputs of the whole Cost Analysis, or MAY be maintained only as internal data used as part of Cost Analysis. Furthermore, they may be skipped if it does not change the overall results of Cost Analysis, and may be stored in any form or calculated in any order. The purpose of describing them here is to explain a straightforward algorithm that is easy to understand and verify, without eliminating any opportunities for optimization.</p>
+<p>For example, some users of Cost Analysis might use the <span class="spec-ref"><a href="#counts" data-name="counts">Counts</a></span> as output to achieve rate-limiting based on a subset of the counts, where other users of Cost Analysis might leave the <span class="spec-ref"><a href="#counts" data-name="counts">Counts</a></span> as an internal step towards calculating the <em>Costs</em>.</p>
+<section id="sec-Counts" secid="5.3.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Counts">5.3.1</a></span>Counts</h3>
+<p>Cost analysis computes <dfn id="counts"><a href="#counts" data-name="counts">Counts</a></dfn>, a set of <em>count</em> values, where each value is a non-negative integer and corresponds to a particular part of the GraphQL schema.</p>
+<p>When a given key refers to a specific parts of a GraphQL schema, we use a &ldquo;GraphQL Path&rdquo; notation. This notation is the same as the notation used in many parts of the industry today, and should evolve with the <a href="https://github.com/graphql/graphql-spec/pull/746">RFC: Schema Coordinates</a> by Mark Larah.</p>
+<section id="sec-Type-Counts" secid="5.3.1.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Type-Counts">5.3.1.1</a></span>Type Counts</h4>
+<p>A type count corresponds to a specific type in the schema. In this case types includes all types which can appear in GraphQL responses: scalar types, object types, interface types, union types, and enum types. The count gives the number of times that a query produces something of that specific type. The various type counts MAY be combined into any <em>hash map</em>, such as a JSON object.</p>
+<pre id="example-b8b29" class="spec-example" data-language="json"><a href="#example-b8b29">Example № 4</a><code><span class="token punctuation">{</span>
+   <span class="token property">"Query"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+   <span class="token property">"User"</span> <span class="token operator">:</span> <span class="token number">3</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+<section id="sec-Input-Type-Counts" secid="5.3.1.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Input-Type-Counts">5.3.1.2</a></span>Input Type Counts</h4>
+<p>An input type counts corresponds to a specific input object type in the schema. Input object types are not in <em>Type Counts</em> because they do not appear in the GraphQL responses. The count gives the number of times that a query returns a field which uses that input type, which is the number of times that a resolver function was run for a field with this input type.</p>
+<pre id="example-c050a" class="spec-example" data-language="json"><a href="#example-c050a">Example № 5</a><code><span class="token punctuation">{</span>
+   <span class="token property">"UserInput"</span> <span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+<section id="sec-Field-Counts" secid="5.3.1.3">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Field-Counts">5.3.1.3</a></span>Field Counts</h4>
+<p>A field count corresponds to a specific field which is defined on an object type or interface type in the schema. The count gives the number of times that a query returns that specific field on that type, which is the number of times that a <em>resolver</em> was run on that field.</p>
+<pre id="example-daccd" class="spec-example" data-language="json"><a href="#example-daccd">Example № 6</a><code><span class="token punctuation">{</span>
+   <span class="token property">"Query.user"</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+   <span class="token property">"User.name"</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+   <span class="token property">"User.friends"</span> <span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+<section id="sec-Input-Field-Counts" secid="5.3.1.4">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Input-Field-Counts">5.3.1.4</a></span>Input Field Counts</h4>
+<p>An input field count corresponds to a specific field which is defined on an input object type in the schema. The count gives the number of times that a query returns a field which uses this input field, which is the number of times that a resolver function was run for a field using an input type using this input field.</p>
+<pre id="example-5f154" class="spec-example" data-language="json"><a href="#example-5f154">Example № 7</a><code><span class="token punctuation">{</span>
+   <span class="token property">"UserInput.name"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+   <span class="token property">"ProduceInput.category"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+   <span class="token property">"Filter.age"</span> <span class="token operator">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+<section id="sec-Argument-Counts" secid="5.3.1.5">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Argument-Counts">5.3.1.5</a></span>Argument Counts</h4>
+<p>An argument count corresponds to a specific argument to either a field or a directive on the schema. The count gives the number of times that a specific argument is used in a query, on either a field or a directive, which is the number of times that a resolver function was run for a field which uses this argument.</p>
+<pre id="example-5f86a" class="spec-example" data-language="json"><a href="#example-5f86a">Example № 8</a><code><span class="token punctuation">{</span>
+   <span class="token property">"Query.users.limit"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+   <span class="token property">"@skip.if"</span> <span class="token operator">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+<section id="sec-Directive-Counts" secid="5.3.1.6">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Directive-Counts">5.3.1.6</a></span>Directive Counts</h4>
+<p>A directive count corresponds to a specific directive in the schema. The count gives the number of times a specific directive is used, which is the number of times that a resolver function was run for a field which uses this directive.</p>
+<pre id="example-0c26d" class="spec-example" data-language="json"><a href="#example-0c26d">Example № 9</a><code><span class="token punctuation">{</span>
+   <span class="token property">"@defer"</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+   <span class="token property">"@include"</span> <span class="token operator">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>An implementation MAY store all key-value pairs of count values in a single <em>map</em> or it MAY store them in a number of maps, one for type counts, one for field counts, etc.</p>
+<div id="note-c8206" class="spec-note">
+<a href="#note-c8206">Note</a>
+This document specifies how to calculate each count, but if counts are saved or presented such as being logged or persisted in a database, then it might make sense to only record counts for the most used or most costly items. Regardless, all counts must be assessed by <span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></span> so that it can produce an accurate cost calculation.</div>
+</section>
+</section>
+<section id="sec-Costs" secid="5.3.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Costs">5.3.2</a></span>Costs</h3>
+<p>Cost Analysis can result in various <em>Costs</em>, which are numeric values characterizing the net effective expense of executing the query on the GraphQL server.</p>
+<section id="sec-Type-Cost" secid="5.3.2.1">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Type-Cost">5.3.2.1</a></span>Type Cost</h4>
+<p>The <dfn id="type-cost"><a href="#type-cost" data-name="type-cost">Type Cost</a></dfn> is the weighted sum of the <em>Type Counts</em>.</p>
+</section>
+<section id="sec-Field-Cost" secid="5.3.2.2">
+<h4><span class="spec-secid" title="link to this section"><a href="#sec-Field-Cost">5.3.2.2</a></span>Field Cost</h4>
+<p>The overall <dfn id="field-cost"><a href="#field-cost" data-name="field-cost">Field Cost</a></dfn> can be calculated by adding together the cost of every object field. The cost of each object field can be calculated by recursively applying these algorithms to calculate the cost of all arguments, directives, and fields, including object fields and input fields.</p>
+<p><strong>Arguments</strong>: For every argument <em>a</em>, calculate its cost:</p>
+<ul>
+<li>Add up:<ul>
+<li>The weight of argument <em>a</em></li>
+<li>The sum of the cost of all of the input fields which are used on argument <em>a</em></li>
+</ul>
+</li>
+<li>This sum may be negative</li>
+</ul>
+<p><strong>Directives</strong>: For every directive <em>d</em> calculate its cost:</p>
+<ul>
+<li>Add up:<ul>
+<li>The weight of directive <em>d</em></li>
+<li>The sum of the cost of all of the arguments on directive <em>d</em></li>
+</ul>
+</li>
+<li>This sum may be negative</li>
+</ul>
+<p><strong>Fields</strong>: For every field <em>f</em> calculate its cost:</p>
+<ul>
+<li>First, add up the raw cost of field <em>f</em> by calculating the sum of:<ul>
+<li>The weight of field <em>f</em></li>
+<li>The sum of the cost of all directives on field <em>f</em></li>
+<li>The sum of the cost of all arguments on field <em>f</em></li>
+</ul>
+</li>
+<li>Second, if this sum is negative then round it up to zero</li>
+</ul>
+<section id="sec-Field-Cost.Example-Argument-Weights" class="subsec">
+<h6><a href="#sec-Field-Cost.Example-Argument-Weights" title="link to this subsection">Example: Argument Weights</a></h6>
+<pre id="example-680a6" class="spec-example" data-language="graphql"><a href="#example-680a6">Example № 10</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  topProducts<span class="token punctuation">(</span><span class="token attr-name">filter</span><span class="token punctuation">:</span> Filter <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"15.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In this example, a query that asks for <code>topProducts</code> has a Field Cost of <code>5.0</code> unless it uses a filter which results in much more work in the same single resolver function and therefore increases the Field Cost on this field to <code>20.0</code>, as the sum of <code>5.0</code> for the field itself and <code>15.0</code> for the argument.</p>
+</section>
+<section id="sec-Field-Cost.Example-Negative-Weights" class="subsec">
+<h6><a href="#sec-Field-Cost.Example-Negative-Weights" title="link to this subsection">Example: Negative Weights</a></h6>
+<pre id="example-e03dd" class="spec-example" data-language="graphql"><a href="#example-e03dd">Example № 11</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  mostPopularProduct<span class="token punctuation">(</span><span class="token attr-name">approx</span><span class="token punctuation">:</span> Approximate <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-3.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Product <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In this example, a query that asks for the most popular product has a Field Cost of <code>5.0</code> unless it uses an argument to indicate that only an approximate answer is needed and not an exact transactional answer, in which case the cost would reduce to <code>2.0</code> as 5.0 - 3.0 = <code>2.0</code>. This is an example of where negative weights can be used even though a given field cannot add a negative value to the overall cost. Conceptually, we can understand that certain arguments might make it less expensive to run a given resolver function.</p>
+</section>
+<section id="sec-Field-Cost.Example-Input-Field-Weights" class="subsec">
+<h6><a href="#sec-Field-Cost.Example-Input-Field-Weights" title="link to this subsection">Example: Input Field Weights</a></h6>
+<pre id="example-ed150" class="spec-example" data-language="graphql"><a href="#example-ed150">Example № 12</a><code><span class="token keyword">input</span> Filter <span class="token punctuation">{</span>
+  <span class="token attr-name">approx</span><span class="token punctuation">:</span> Approximate <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-12.0"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  topProducts<span class="token punctuation">(</span><span class="token attr-name">filter</span><span class="token punctuation">:</span> Filter <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"15.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This example builds on <a href="#example-1d232">example above</a> where the <code>filter</code> contributed an extra <code>15.0</code> to the cost of the <code>topProducts</code> field. Now we qualify that: If the filter is only approximate then the weight is decreased by adding <code>-12.0</code> which means that the <code>filter</code> argument overall contributes a weight of 15.0 - 12.0 = <code>3.0</code> to the base field cost of <code>5.0</code> for an overall field cost of <code>8.0</code>.</p>
+</section>
+<section id="sec-Field-Cost.Example-Directive-Arguments" class="subsec">
+<h6><a href="#sec-Field-Cost.Example-Directive-Arguments" title="link to this subsection">Example: Directive Arguments</a></h6>
+<pre id="example-9f05a" class="spec-example" data-language="graphql"><a href="#example-9f05a">Example № 13</a><code><span class="token keyword">directive</span> <span class="token directive function">@approx</span> <span class="token punctuation">(</span><span class="token attr-name">tolerance</span><span class="token punctuation">:</span> Float<span class="token operator">!</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-1.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token class-name">FIELD</span>
+</code></pre>
+<p>In this example, we modify the <code>@approx</code> directive&rsquo;s required <code>tolerance</code> argument to have a weight of <code>-1.0</code>, which therefore adds <code>-1.0</code> to the cost of every use of the <code>@approx</code> directive, and in turn to every field which uses the <code>@approx</code> directive. This slightly decreases the cost of every field in a query which only needs approximate results.</p>
+</section>
+<section id="sec-Field-Cost.Weights-used-in-Response" class="subsec">
+<h6><a href="#sec-Field-Cost.Weights-used-in-Response" title="link to this subsection">Weights used in Response</a></h6>
+<p><span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span> has access to the original query in addition to the response, so it knows the directives and arguments on a field and can calculate the same costs as the other methods.</p>
+</section>
+</section>
+</section>
+</section>
+</section>
+<section id="sec-Introspection" secid="6">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Introspection">6</a></span>Introspection</h1>
+<p>The GraphQL specification <a href="https://spec.graphql.org/draft/#sec-Introspection">defines introspection</a> using GraphQL itself to create &ldquo;a powerful platform for tool-building&rdquo;. For any GraphQL server or middleware implementing this specification, it can <em>optionally</em> support extensions to introspection to further enhance this powerful platform and enable tools that assist the client with understanding the <em>cost</em> of their queries.</p>
+<section id="sec-Introspection-of-Cost-Analysis-Results" secid="6.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Introspection-of-Cost-Analysis-Results">6.1</a></span>Introspection of Cost Analysis Results</h2>
+<p>The <a href="#sec-Results-of-Cost-Analysis">results of cost analysis</a> can be added into the introspection. As with any introspection, some servers might disable it for security or enable it to support powerful tooling. Each system <em>MAY</em> extend introspection with cost analysis results, and if they do then they <em>MUST</em> extend introspection in these ways to be compatible.</p>
+<section id="sec-Naming" secid="6.1.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Naming">6.1.1</a></span>Naming</h3>
+<p>The <a href="https://spec.graphql.org/draft/#sec-Reserved-Names">GraphQL specification</a> requires that: &ldquo;Types and fields required by the GraphQL introspection system that are used in the same context as user-defined types and fields are prefixed with <span class="spec-string">"__"</span> two underscores.&rdquo;</p>
+<p>This extension to introspection maintains that rule.</p>
+</section>
+<section id="sec-__cost" secid="6.1.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-__cost">6.1.2</a></span>__cost</h3>
+<p>This extension to the schema introspection system is accessible from the meta-field <code>__cost</code> which is accessible from the type of the root of a query operation.</p>
+<pre data-language="graphql"><code><span class="token attr-name">__cost</span> <span class="token punctuation">:</span> __Cost<span class="token operator">!</span>
+</code></pre>
+<p>Like all meta-fields, <code>__cost</code> is implicit and does not appear in the fields list in the root type of the query operation.</p>
+<p>The schema of the GraphQL cost introspection system:</p>
+<pre data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">__Cost</span> <span class="token punctuation">{</span>
+   <span class="token attr-name">requestCosts</span> <span class="token punctuation">:</span> __CostMetrics
+   <span class="token attr-name">responseCosts</span> <span class="token punctuation">:</span> __CostMetrics
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">__CostMetrics</span> <span class="token punctuation">{</span>
+   fieldCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   typeCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   inputTypeCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   inputFieldCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   argumentCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   directiveCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+
+   <span class="token attr-name">fieldCost</span> <span class="token punctuation">:</span> Float<span class="token operator">!</span>
+   <span class="token attr-name">typeCost</span> <span class="token punctuation">:</span> Float<span class="token operator">!</span>
+
+   fieldCostByLocation<span class="token punctuation">(</span><span class="token attr-name">regexPath</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostByLocation<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   typeCostByLocation<span class="token punctuation">(</span><span class="token attr-name">regexPath</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostByLocation<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">__CostByLocation</span> <span class="token punctuation">{</span>
+   <span class="token attr-name">path</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+   <span class="token attr-name">cost</span><span class="token punctuation">:</span> Float<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">__CostCountType</span> <span class="token punctuation">{</span>
+   <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
+   <span class="token attr-name">value</span><span class="token punctuation">:</span>  Int<span class="token operator">!</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The counts <code>fieldCounts</code>, <code>typeCounts</code>, <code>inputTypeCounts</code>, <code>inputFieldCounts</code>, <code>argumentCounts</code>, and <code>directiveCounts</code> returned correspond to the result <span class="spec-ref"><a href="#counts" data-name="counts">counts</a></span> calculated for the overall query.</p>
+<p>The returned <code>typeCost</code> and <code>fieldCost</code> correspond to the overall <span class="spec-ref"><a href="#type-cost" data-name="type-cost">type cost</a></span> and <span class="spec-ref"><a href="#field-cost" data-name="field-cost">field cost</a></span> of the query, respectively.</p>
+<p>The costs by location returned by <code>typeCostByLocation</code> and <code>fieldCostByLocation</code> are the subset of the overall <code>typeCost</code> and <code>fieldCost</code> calculated for the given subsets of the overall query.</p>
+</section>
+<section id="sec-regexName-Arguments" secid="6.1.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-regexName-Arguments">6.1.3</a></span>regexName Arguments</h3>
+<p>All regular expression name arguments <code>regexName</code> on fields in the <code>__Cost</code> type are regular expressions on the name of the relevant part of the GraphQL schema provided by the GraphQL schema type system, and that format should evolve with the <a href="https://github.com/graphql/graphql-spec/pull/746">RFC: Schema Coordinates</a> by Mark Larah.</p>
+<p>Each of these regular expressions limits the scope of responses in the returned list: When returning a list of <code>__CostCountType</code> objects, each <code>__CostCountType</code>&lsquo;s <code>name</code> must match the regular expression.</p>
+<p>This regular expression always applies to the full name, as if the <em>start string</em> and <em>end string</em> qualifiers are always specified. This implies that whenever no wildcards are used, the returned list much have at most one item in it.</p>
+</section>
+<section id="sec-regexPath-Arguments" secid="6.1.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-regexPath-Arguments">6.1.4</a></span>regexPath Arguments</h3>
+<p>All regular expression path arguments <code>regexPath</code> are regular expressions on the string representing the path into a particular part of the GraphQL query. This path is a dot-separated list of fields from the root of the query, with references to directives, fragments, and arguments expressed as they would be using Schema Coordinates. There are a number of considerations necessary to make a proper &ldquo;Query Coordinates&rdquo; spec to match/extend the existing &ldquo;Schema Coordinates&rdquo; RFC. We&rsquo;ve made some choices here, but if Query Coordinates get standardized as part of the GraphQL spec, then that standardization should be used here instead of these choices.</p>
+<p>In the absence of a proper GraphQL Query Coordinates RFC, we are including some examples to illustrate the idea. We feel that an actual spec for Query Coordinates should be independent and not part of this document.</p>
+<p>Consider this example GraphQL query:</p>
+<pre id="example-93976" class="spec-example" data-language="graphql"><a href="#example-93976">Example № 14</a><code><span class="token punctuation">{</span>
+  a1<span class="token punctuation">(</span><span class="token attr-name">arg1</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token attr-name">arg2</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token attr-name">f1</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token attr-name">f2</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    x <span class="token directive function">@dir1</span><span class="token punctuation">(</span><span class="token attr-name">f3</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token attr-name">f4</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">)</span>
+    <span class="token operator">...</span><span class="token fragment function">b</span> <span class="token directive function">@dir2</span>
+    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token directive function">@dir3</span> <span class="token punctuation">{</span>
+      c
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  a2 <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token fragment function">b</span>
+    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
+      nest <span class="token punctuation">{</span>
+        y
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
+      nest <span class="token punctuation">{</span>
+        z
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">fragment</span> <span class="token fragment function">b</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token directive function">@dir4</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In this query, legal paths include:</p>
+<ul>
+<li><code>a1</code> - This is the path to the first field of the query</li>
+<li><code>a1(arg1:)</code> - This is the path to the <code>a1</code> field&rsquo;s <code>arg1</code> argument</li>
+<li><code>a1(arg2:).f2</code> - This is the path to the <code>a1</code> field&rsquo;s <code>arg1</code> argument&rsquo;s <code>f2</code> input field</li>
+<li><code>a1.x</code> - This is the path to the <code>a1</code> field&rsquo;s selection set&rsquo;s <code>x</code> field</li>
+<li><code>a1.~b</code> - This is the path to the <code>b</code> fragment spread within the <code>a1</code> field</li>
+<li><code>a1.on~A</code> - This is the path to the <code>on A</code> fragment spread</li>
+<li><code>a1.on~A.@dir3</code> - This is the path to that fragment spread&rsquo;s directive</li>
+<li><code>a1.on~A.c</code> - This is the path to that fragment spread&rsquo;s <code>c</code> field</li>
+<li><code>a2.on~A[0]</code> - This is the path to the first <code>... on A</code> within <code>a2</code></li>
+<li><code>a2.on~A[1]</code> - This is the path to the second <code>... on A</code> within <code>a2</code></li>
+<li><code>~~b</code> - This is the path to the fragment <code>b</code>, ie. the definition of the <code>b</code> fragment</li>
+<li><code>~~b.@dir4</code> - This is the path to the directive on that fragment definition</li>
+</ul>
+<p>Take note that there are two <code>... on A</code> inlined fragments with the <code>a2</code> field. It makes sense for end-user tooling to want to display the contribution of each of these two to the overall query cost independently. Therefore, we need to be able to have unique paths that distinguish between them. In this case we add <code>[0]</code> and <code>[1]</code> to the end of the path. There could be later path elements as well, for example:</p>
+<ul>
+<li><code>a2.on~A[0].nest</code> - The first <code>nest</code> field</li>
+<li><code>a2.on~A[1].nest</code> - The second <code>nest</code> field</li>
+</ul>
+<p>To keep the path expressions simple:</p>
+<ul>
+<li>For any part of the path with only a single occurance in the query, the <code>[0]</code> <em>must</em> be ommitted.</li>
+<li>For any regular expression, it should take into account that any path element might or might not have an index.</li>
+</ul>
+<p>We hope that a proper <em>GraphQL Query Coordinates</em> RFC will improve this situation.</p>
+<p>Here is another example:</p>
+<pre id="example-25339" class="spec-example" data-language="graphql"><a href="#example-25339">Example № 15</a><code>
+<span class="token keyword">query</span> <span class="token constant">A</span> <span class="token punctuation">{</span>
+  a <span class="token punctuation">{</span>
+    <span class="token attr-name">y</span><span class="token punctuation">:</span> x <span class="token punctuation">{</span> i j <span class="token punctuation">}</span>
+    <span class="token attr-name">x</span><span class="token punctuation">:</span> y
+    <span class="token attr-name">z</span><span class="token punctuation">:</span> x <span class="token punctuation">{</span> j k <span class="token punctuation">}</span>
+    <span class="token operator">...</span><span class="token fragment function">B</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">fragment</span> <span class="token fragment function">B</span> <span class="token punctuation">{</span>
+  z
+<span class="token punctuation">}</span>
+
+<span class="token keyword">query</span> <span class="token constant">B</span> <span class="token punctuation">{</span>
+  a <span class="token punctuation">{</span>
+    a
+    b
+    <span class="token operator">...</span><span class="token fragment function">A</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">fragment</span> <span class="token fragment function">A</span> <span class="token punctuation">{</span>
+  c
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In this query, legal paths include:</p>
+<ul>
+<li><code>A</code> - This is the path to the <code>A</code> operation</li>
+<li><code>A.a</code> - This is the path to that operation&rsquo;s <code>a</code> field</li>
+<li><code>A.a.y</code> - This refers to the <code>y: x</code> field, using the alias</li>
+<li><code>A.a.x</code> - This refers to the <code>x: y</code> field, using the alias</li>
+<li><code>~~B</code> - This is a path to the fragment definiton of <code>B</code></li>
+<li><code>B</code> - This is a path to the operation definition of <code>B</code></li>
+</ul>
+<p>When returning a list of <code>__CostByLocation</code> objects, each <code>__CostByLocation</code>&lsquo;s <code>path</code> must match the regular expression.</p>
+<p>Just like the <em>regexName</em> arguments, this regular expression always applies to the full path, as if the <em>start string</em> and <em>end string</em> qualifiers are always specified. This implies that whenever no wildcards are used, the returned list much have at most one item in it.</p>
+</section>
+<section id="sec-requestCosts-and-responseCosts" secid="6.1.5">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-requestCosts-and-responseCosts">6.1.5</a></span>requestCosts and responseCosts</h3>
+<p>Implementations which extend introspection with cost results <em>must</em> return at least one of <code>requestCosts</code> and <code>responseCosts</code> as non-null. If returning a non-null <code>requestCosts</code> it should have been computed by <span class="spec-ref"><a href="#static-query-analysis" data-name="static-query-analysis">Static Query Analysis</a></span>. If returning a non-null <code>responseCosts</code> it should have been computed by either <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span> or <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span>.</p>
+</section>
+</section>
+<section id="sec-introspectionOnly" secid="6.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-introspectionOnly">6.2</a></span>introspectionOnly</h2>
+<p>Implementations <em>may</em> support an HTTP Header named <code>introspectionOnly</code>. If this header is passed, then that HTTP transaction <em>MUST</em> only execute the introspection parts of the query, including <code>__schema</code>, <code>__type</code>, <code>__cost</code>, and any other extensions to introspection.</p>
+<p>This header gives the client tooling the ability:</p>
+<ul>
+<li>to pass this header and a query which will be analyzed and yield the results of cost analysis, without actually executing the non-meta part of the query.</li>
+<li>to not pass this header, thus defaulting to executing all parts of the query including the meta and non-meta parts.</li>
+</ul>
+</section>
+<section id="sec-NoSchemaIntrospectionCustomRule" secid="6.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-NoSchemaIntrospectionCustomRule">6.3</a></span>NoSchemaIntrospectionCustomRule</h2>
+<p>Since <code>__cost</code> is an extension of introspection, any custom rule that turns off all introspection such as the <a href="https://github.com/graphql/graphql-js/issues/2597">graphql-js v15.2.0 feature</a>, must also forbid use of <code>__cost</code>.</p>
+<p>Implementations <em>may</em> make finer-grained setting to only forbid parts of introspection, however a generic toggle or validation rule <em>must</em> apply to all parts of introspection equally.</p>
+</section>
+<section id="sec-Introspection-of-Cost-Directives" secid="6.4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Introspection-of-Cost-Directives">6.4</a></span>Introspection of Cost Directives</h2>
+<p>This document specifies adding cost directives to a GraphQL schema. It would be useful for client tooling to automatically introspect these directives from a GraphQL server, allowing the server to advertise how expensive various GraphQL constructs are in that GraphQL schema. It would help if GraphQL introspection results had an option to include directives in the GraphQL schema, as is <a href="https://github.com/graphql/graphql-spec/issues/300">being discussed as a possible change to the GraphQL specification</a>.</p>
+</section>
+</section>
+<section id="sec-The-Cost-Directive" secid="7">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-The-Cost-Directive">7</a></span>The Cost Directive</h1>
+<p>The purpose of the <code>cost</code> directive is to define a <code>weight</code> for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall <a href="#sec-Costs">cost</a> of a query or response.</p>
+<p>Formally, the definition of the <dfn id="cost-directive"><a href="#cost-directive" data-name="cost-directive">cost Directive</a></dfn> is:</p>
+<pre data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">on</span> 
+  <span class="token operator">|</span> <span class="token constant">ARGUMENT_DEFINITION</span>
+  <span class="token operator">|</span> <span class="token constant">ENUM</span>
+  <span class="token operator">|</span> <span class="token constant">FIELD_DEFINITION</span>
+  <span class="token operator">|</span> <span class="token constant">INPUT_FIELD_DEFINITION</span>
+  <span class="token operator">|</span> <span class="token constant">OBJECT</span>
+  <span class="token operator">|</span> <span class="token constant">SCALAR</span>
+</code></pre>
+<section id="sec-weight" secid="7.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-weight">7.1</a></span>weight</h2>
+<p>The <code>weight</code> argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc. Being of type <a href="http://spec.graphql.org/draft/#sec-Type-System.Non-Null">non-null</a> <code>String</code>, the <code>weight</code> argument has to be set for every use of the <code>@cost</code> directive. In other words, it is the sole purpose of the <code>cost</code> directive to set a <code>weight</code>. While <code>weight</code> is required on <code>@cost</code>, it is not required to include the <code>@cost</code> directive on any schema construct.</p>
+<p>While the type of <code>weight</code> is a <code>String!</code>, the value of the <code>String</code> may be a serialized <code>Float</code>. The reason that the definition is <code>String</code> is to allow extensibility of using a formula which computes a <code>Float</code>. All implementations <em>must</em> accept a literal serialized <code>Float</code>.</p>
+<p>When a <code>@cost</code> directive is not provided, <span class="spec-ref"><a href="#cost-analysis" data-name="cost-analysis">Cost Analysis</a></span> relies on <em>default weights</em>:</p>
+<ul>
+<li>For scalar and enum types the weight defaults to <code>"0.0"</code>.</li>
+<li>Fields returning scalar and enum types, arguments of scalar and enum types, as well as input fields of scalar and enum types all default to <code>"0.0"</code>.</li>
+<li>Weights for all composite input and output types default to <code>"1.0"</code>.</li>
+</ul>
+<p>These default weights reflect the fact that scalar and enum values are often contained in their composite parents, like a &ldquo;name&rdquo; being contained in a &ldquo;user&rdquo; object, so while they require an additional GraphQL resolver function to be called, it usually does not result in an additional call outside of the GraphQL execution engine.</p>
+<p>Weights can be negative. The overall calculated weight of a field or directive can never be negative, and if found to be negative must be rounded up to zero, but negative weights on arguments can be useful when combined with positive weights on the field that uses those arguments. See <a href="#sec-Field-Cost.Example-Negative-Weights">Negative Weights</a>.</p>
+</section>
+<section id="sec-The-Cost-Directive.Locations" secid="7.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-The-Cost-Directive.Locations">7.2</a></span>Locations</h2>
+<p>The <code>@cost</code> directive can be used in a variety of locations, namely on all elements relevant for calculating different <a href="#sec-Costs">kinds of cost</a>.</p>
+<p>Deliberately, the <code>@cost</code> directive <em>cannot</em> be used on abstract types, neither interfaces nor unions. For such types, Cost Analysis should consider as <code>weight</code> the maximum weight of any of the member types. This constraint is required to ensure that <em>Static Cost Analysis</em> on a query produces cost values that are upper bounds of the values produced by either <span class="spec-ref"><a href="#dynamic-query-analysis" data-name="dynamic-query-analysis">Dynamic Query Analysis</a></span> or <span class="spec-ref"><a href="#query-response-analysis" data-name="query-response-analysis">Query Response Analysis</a></span>, which run after a concrete type was determined during execution. </p>
+<p>For the same reason, the <code>cost</code> directive <em>cannot</em> be used on fields of an interface.</p>
+<p>Additonally, the <code>@cost</code> directive <em>cannot</em> be used on an input object, although it can be used on the fields within an input object. The rationale is that the input object itself adds to the size of the query which can be calculated exactly without any directives, whereas the fields in the input type might correspond to additonal work needed in the resolver function for an object&rsquo;s field, and should affect the weight of that other field.</p>
+</section>
+</section>
+<section id="sec-The-List-Size-Directive" secid="8">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-The-List-Size-Directive">8</a></span>The List Size Directive</h1>
+<p>A main challenge when statically analyzing <em>queries</em> is how to produce counts and cost for fields that return lists of values. During query execution, those fields&rsquo; resolver functions return lists of finite size, limited either by the sparsity of data, by limits hard-coded in the GraphQL server implementation (e.g., how many entries to select in a database query), or relying on the values of <a href="https://graphql.org/learn/pagination/#slicing">slicing arguments</a> used for pagination and sent in queries.</p>
+<p>Without access to the implementation of a GraphQL server or its underlying data, a static query analysis cannot know the size of lists. To be conservative and not under-estimate cost and counts, it must initially assume the length of lists to be infinite. This approach does guarantee that the analysis produces cost and count upper bounds, but it renders the resulting cost and counts to be meaningless.</p>
+<p>The purpose of the <code>@listSize</code> directive is to either inform the static analysis about the size of returned lists (if that information is statically available), or to point the analysis to where to find that information.</p>
+<p>Formally, the definition of the <dfn id="listsize-directive"><a href="#listsize-directive" data-name="listsize-directive">listSize Directive</a></dfn> is:</p>
+<pre data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span>
+  <span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> Int<span class="token punctuation">,</span>
+  <span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token attr-name">sizedFields</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token attr-name">requireOneSlicingArgument</span><span class="token punctuation">:</span> Boolean <span class="token operator">=</span> <span class="token boolean">true</span>
+<span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span>
+
+</code></pre>
+<section id="sec-assumedSize" secid="8.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-assumedSize">8.1</a></span>assumedSize</h2>
+<p>The <code>assumedSize</code> argument can be used to statically define the maximum length of a list returned by a field.</p>
+<p>For example, in the following schema document, the <code>assumedSize</code> argument states that the list of strings returned by field <code>Query.topProducts</code> will always be 10:</p>
+<pre id="example-e3314" class="spec-example" data-language="graphql"><a href="#example-e3314">Example № 16</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">topProducts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>For static analysis to produce accurate counts and cost, the GraphQL server must ensure that the list returned by a field with an <code>assumedSize</code> directive does in fact return lists of (at most) the defined size.</p>
+</section>
+<section id="sec-slicingArguments" secid="8.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-slicingArguments">8.2</a></span>slicingArguments</h2>
+<p>The <code>slicingArguments</code> argument can be used to define which of the field&rsquo;s arguments with numeric type are <a href="https://graphql.org/learn/pagination/#slicing">slicing arguments</a>, so that their value determines the size of the list returned by that field. It may specify a list of multiple slicing arguments.</p>
+<p>For example, in the following schema document, the <code>slicingArguments</code> argument states that the <code>max</code> argument of field <code>Query.users</code> is a slicing argument:</p>
+<pre id="example-83dc0" class="spec-example" data-language="graphql"><a href="#example-83dc0">Example № 17</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">users</span> <span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Int<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>When analyzing a query that includes that field, the static analysis can use the value of the <code>max</code> argument to determine how long the list of users is going to be (at most).</p>
+<p>For any argument with a default value in the schema but no value given in the query, static analysis should treat it as if that value was given in the query.</p>
+<p>When multiple slicing arguments are defined and a query contains more than one, static analysis should consider their largest value to ensure producing upper bounds.</p>
+</section>
+<section id="sec-sizedFields" secid="8.3">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-sizedFields">8.3</a></span>sizedFields</h2>
+<p>The <code>sizedFields</code> argument can be used to define that the value of the <code>assumedSize</code> argument or of a slicing argument does not affect the size of a list returned by a field itself, but that of a list returned by one of its sub-fields.</p>
+<p>This option is relevant primarily for schemas that implement the <a href="https://relay.dev/graphql/connections.htm">GraphQL Cursor Connections Specification</a>. In it, fields with slicing arguments <code>first</code> and <code>last</code> return a single <a href="https://relay.dev/graphql/connections.htm#sec-Connection-Types">Connection</a> with a field <a href="https://relay.dev/graphql/connections.htm#sec-Edges"><code>edges</code></a> that itself returns the sliced list (in which each element is contained in an <a href="https://relay.dev/graphql/connections.htm#sec-Edge-Types">Edge</a>).</p>
+<p>For example, in the following schema document, the field <code>Query.films</code> has two slicing arguments <code>first</code> and <code>last</code>. The field returns a single <code>FilmConnection</code>, which itself provides access to multiple <code>FilmEdge</code>s via its <code>FilmConnection.edges</code> field. The <code>sizedFields</code> option states the the size of the list returned by <code>FilmConnection.edges</code> is determined by the value of one of the slicing arguments of the parent field:</p>
+<pre id="example-d0feb" class="spec-example" data-language="graphql"><a href="#example-d0feb">Example № 18</a><code><span class="token keyword">type</span> <span class="token class-name">FilmEdge</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">cursor</span><span class="token punctuation">:</span> ID
+  <span class="token attr-name">node</span><span class="token punctuation">:</span> Film <span class="token comment"># Definition of this type left out in this example</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">FilmConnection</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">edges</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>FilmEdge<span class="token punctuation">]</span>
+  <span class="token comment"># See https://relay.dev/graphql/connections.htm#sec-Connection-Types.Fields.PageInfo</span>
+  <span class="token attr-name">pageInfo</span><span class="token punctuation">:</span> PageInfo
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">films</span><span class="token punctuation">(</span><span class="token attr-name">first</span><span class="token punctuation">:</span> Int<span class="token punctuation">,</span> <span class="token attr-name">after</span><span class="token punctuation">:</span> ID<span class="token punctuation">,</span> <span class="token attr-name">last</span><span class="token punctuation">:</span> Int<span class="token punctuation">,</span> <span class="token attr-name">before</span><span class="token punctuation">:</span> ID<span class="token punctuation">)</span><span class="token punctuation">:</span> FilmConnection <span class="token directive function">@listSize</span><span class="token punctuation">(</span>
+      <span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"first"</span><span class="token punctuation">,</span> <span class="token string">"last"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token attr-name">sizedFields</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"edges"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</section>
+<section id="sec-requireOneSlicingArgument" secid="8.4">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-requireOneSlicingArgument">8.4</a></span>requireOneSlicingArgument</h2>
+<p>The <code>requireOneSlicingArgument</code> argument can be used to inform the static analysis that it should expect that exactly one of the defined slicing arguments is present in a query. If that is not the case (i.e., if none or multiple slicing arguments are present), the static analysis may throw an error.</p>
+<p>Requiring a single slicing argument is useful once more for schemas that implement the <a href="https://relay.dev/graphql/connections.htm">GraphQL Cursor Connections Specification</a>. They define two slicing arguments, <code>first</code> and <code>last</code>, for paginated fields. GraphQL does not support stating that exactly one or the other is required. In consequence, GraphQL API providers like <a href="https://docs.github.com/en/graphql">GitHub</a> implement custom validation rules to make sure exactly one slicing argument is used in a query. The <code>requireOneSlicingArgument</code> argument allows to configure this behavior.</p>
+<p>If no <code>slicingArguments</code> are defined, then the value of <code>requireOneSlicingArgument</code> is ignored.</p>
+<p>Per default, <code>requireOneSlicingArgument</code> is enabled, and has to be explicitly disabled if not desired for a field.</p>
+</section>
+<section id="sec-The-List-Size-Directive.Locations" secid="8.5">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-The-List-Size-Directive.Locations">8.5</a></span>Locations</h2>
+<p>The <code>listSize</code> directive can be used solely on field definitions.</p>
+</section>
+</section>
+<section id="sec-Validation" secid="9">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Validation">9</a></span>Validation</h1>
+<p>The directives defined by this spec can be validated on two dimensions: First, that their definitions are present in an SDL, and are adhering to this spec. Second, that the use of directives within the SDL is correct.</p>
+<section id="sec-Cost-Directive" secid="9.1">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-Cost-Directive">9.1</a></span>Cost Directive</h2>
+<p>An SDL document that implements this spec should contain a directive definition for the <span class="spec-ref"><a href="#cost-directive" data-name="cost-directive">cost directive</a></span>. Specifically:</p>
+<ul>
+<li>The <code>cost</code> directive should define a single argument named <code>weight</code> of type non-null <code>String</code>.</li>
+<li>The <code>cost</code> should be non-repeatable.</li>
+<li>The <code>cost</code> directive should define the locations <code>ARGUMENT_DEFINITION</code>, <code>ENUM</code>, <code>FIELD_DEFINITION</code>, <code>INPUT_FIELD_DEFINITION</code>, <code>OBJECT</code>, and <code>SCALAR</code>.</li>
+</ul>
+<p>The correct usage of the <code>cost</code> directive is partly covered by GraphQL&rsquo;s <a href="http://spec.graphql.org/draft/#sec-Validation">specified validation rules</a>. Specifically:</p>
+<ul>
+<li>The <code>cost</code> directive can only be used in the locations defined in its definition (covered by the <a href="http://spec.graphql.org/draft/#sec-Directives-Are-In-Valid-Locations">&ldquo;Directives Are In Valid Locations&rdquo;</a> validation rule), and can be used only once per location (covered by the <a href="http://spec.graphql.org/draft/#sec-Directives-Are-Unique-Per-Location">&ldquo;Directives Are Unique Per Location&rdquo;</a> validation rule).</li>
+<li>When used, the <code>cost</code> directive must set a value for its defined <code>weight</code> argument (covered by the <a href="http://spec.graphql.org/draft/#sec-Required-Arguments">&ldquo;Required Arguments&rdquo;</a> validation rule) and must only use that argument (covered by the <a href="http://spec.graphql.org/draft/#sec-Argument-Names">&ldquo;Argument Names&rdquo;</a> validation rule) and its value must be of the correct type (covered by the <a href="http://spec.graphql.org/draft/#sec-Values-of-Correct-Type">&ldquo;Values of Correct Type&rdquo;</a> validation rule).</li>
+</ul>
+<p>In addition, further rules for using the <code>cost</code> directive should be validated.</p>
+<section id="sec-No-Cost-on-Interface-Fields" secid="9.1.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-No-Cost-on-Interface-Fields">9.1.1</a></span>No Cost on Interface Fields</h3>
+<p>The <code>cost</code> directive is not allowed on fields in an interface. The cost of a field on an interface can be calculated based on the costs of the corresponding field on each concrete type implementing that interface, either directly or indirectly through other interfaces.</p>
+</section>
+</section>
+<section id="sec-List-Size-Directive" secid="9.2">
+<h2><span class="spec-secid" title="link to this section"><a href="#sec-List-Size-Directive">9.2</a></span>List Size Directive</h2>
+<p>An SDL document that implements this spec should contain a directive definition for the <span class="spec-ref"><a href="#listsize-directive" data-name="listsize-directive">listSize directive</a></span>. Specifically:</p>
+<ul>
+<li>The <code>listSize</code> directive should define the following arguments:<ul>
+<li>An argument named <code>assumedSize</code> with type <code>Int</code>. </li>
+<li>An argument named <code>slicingArguments</code> with type list of <code>String</code>.</li>
+<li>An argument named <code>sizedFields</code> with type list of <code>String</code>.</li>
+<li>An argument named <code>requireOneSlicingArgument</code> with type <code>Boolean</code> and a default value of <code>true</code>.</li>
+</ul>
+</li>
+<li>The <code>listSize</code> should be non-repeatable.</li>
+<li>The <code>listSize</code> directive should define the single location <code>FIELD_DEFINITION</code>.</li>
+</ul>
+<p>The correct usage of the <code>listSize</code> directive is partly covered by GraphQL&rsquo;s <a href="http://spec.graphql.org/draft/#sec-Validation">specified validation rules</a>. Specifically:</p>
+<ul>
+<li>The <code>listSize</code> directive can only be used in the locations defined in its definition (covered by the <a href="http://spec.graphql.org/draft/#sec-Directives-Are-In-Valid-Locations">&ldquo;Directives Are In Valid Locations&rdquo;</a> validation rule), and can be used only once per location (covered by the <a href="http://spec.graphql.org/draft/#sec-Directives-Are-Unique-Per-Location">&ldquo;Directives Are Unique Per Location&rdquo;</a> validation rule).</li>
+<li>When used, the <code>listSize</code> directive may set values for any of its defined arguments (covered by the <a href="http://spec.graphql.org/draft/#sec-Argument-Names">&ldquo;Argument Names&rdquo;</a> validation rule) and their values must be of the correct type (covered by the <a href="http://spec.graphql.org/draft/#sec-Values-of-Correct-Type">&ldquo;Values of Correct Type&rdquo;</a> validation rule).</li>
+</ul>
+<p>In addition, further rules for using the <code>listSize</code> directive should be validated.</p>
+<section id="sec-Valid-List-Size-Target" secid="9.2.1">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Valid-List-Size-Target">9.2.1</a></span>Valid List Size Target</h3>
+<p>The <code>listSize</code> directive should only be used on fields that return lists, or it uses the <code>sizedFields</code> argument.</p>
+</section>
+<section id="sec-Valid-Sized-Fields-Target" secid="9.2.2">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Valid-Sized-Fields-Target">9.2.2</a></span>Valid Sized Fields Target</h3>
+<p>Using the <code>sizedFields</code> argument in a <code>listSize</code> directive requires that both:</p>
+<ul>
+<li>The named sized fields are defined in the return type of the annotated field.</li>
+<li>The named sized field return lists.</li>
+</ul>
+</section>
+<section id="sec-Valid-Slicing-Arguments-Target" secid="9.2.3">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Valid-Slicing-Arguments-Target">9.2.3</a></span>Valid Slicing Arguments Target</h3>
+<p>Using the <code>slicingArguments</code> argument in a <code>listSize</code> directive requires that both:</p>
+<ul>
+<li>The named slicing arguments are defined in the annotated field.</li>
+<li>The named slicing arguments have a type non-null <code>Int</code> or simply <code>Int</code>.</li>
+</ul>
+</section>
+<section id="sec-Valid-Assumed-Size" secid="9.2.4">
+<h3><span class="spec-secid" title="link to this section"><a href="#sec-Valid-Assumed-Size">9.2.4</a></span>Valid Assumed Size</h3>
+<p>Using the <code>assumedSize</code> argument in a <code>listSize</code> directive requires that:</p>
+<ul>
+<li>Either the same directive does not also use the <code>slicingArguments</code> argument, or:</li>
+<li>The same directive does use the <code>slicingArguments</code> argument, but none of the slicing arguments has a default value, and the <code>requireOneSlicingArgument</code> is set to <code>false</code>.</li>
+</ul>
+<p>The rationale behind this rule is to avoid cases where it is ambiguous for static analysis whether to use the value of the <code>assumedSize</code> argument or that of a slicing argument. The second condition renders the value of the <code>assumedSize</code> argument a backup for queries that do not use a slicing argument, and where no slicing argument has a default value. In cases where a slicing argument is provided on a field that also has an <code>assumedSize</code> defined, static analysis should prioritize the value of the slicing argument. </p>
+</section>
+</section>
+</section>
+<section id="index" secid="index" class="spec-index">
+<h1>
+<span class="spec-secid" title="link to the index"><a href="#index">§</a></span>Index</h1>
+<ol>
+<li><a href="#cost-analysis">Cost Analysis</a></li>
+<li><a href="#cost-directive">cost Directive</a></li>
+<li><a href="#counts">Counts</a></li>
+<li><a href="#dynamic-query-analysis">Dynamic Query Analysis</a></li>
+<li><a href="#field-cost">Field Cost</a></li>
+<li><a href="#listsize-directive">listSize Directive</a></li>
+<li><a href="#methods-of-cost-analysis">Methods of Cost Analysis</a></li>
+<li><a href="#query-response-analysis">Query Response Analysis</a></li>
+<li><a href="#static-query-analysis">Static Query Analysis</a></li>
+<li><a href="#type-cost">Type Cost</a></li>
+</ol>
+</section>
+</article>
+<footer>
+Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</footer>
+<input hidden class="spec-sidebar-toggle" type="checkbox" id="spec-sidebar-toggle" aria-hidden /><label for="spec-sidebar-toggle" aria-hidden><div class="spec-sidebar-button">&#x2630;</div></label>
+<div class="spec-sidebar" aria-hidden>
+<div class="spec-toc">
+<div class="title"><a href="#">GraphQL Cost Directives</a></div>
+<ol><li id="_sidebar_1"><a href="#sec-Goals"><span class="spec-secid">1</span>Goals</a></li>
+<li id="_sidebar_2"><a href="#sec-Collaboration"><span class="spec-secid">2</span>Collaboration</a></li>
+<li id="_sidebar_3"><a href="#sec-Example"><span class="spec-secid">3</span>Example</a></li>
+<li id="_sidebar_4"><a href="#sec-Reserved-Directives"><span class="spec-secid">4</span>Reserved Directives</a></li>
+<li id="_sidebar_5"><a href="#sec-Cost-Analysis"><span class="spec-secid">5</span>Cost Analysis</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5" /><label for="_toggle_5"></label>
+<ol>
+<li id="_sidebar_5.1"><a href="#sec-Methods-of-Cost-Analysis"><span class="spec-secid">5.1</span>Methods of Cost Analysis</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.1" /><label for="_toggle_5.1"></label>
+<ol>
+<li id="_sidebar_5.1.1"><a href="#sec-Static-Query-Analysis"><span class="spec-secid">5.1.1</span>Static Query Analysis</a></li>
+<li id="_sidebar_5.1.2"><a href="#sec-Dynamic-Query-Analysis"><span class="spec-secid">5.1.2</span>Dynamic Query Analysis</a></li>
+<li id="_sidebar_5.1.3"><a href="#sec-Query-Response-Analysis"><span class="spec-secid">5.1.3</span>Query Response Analysis</a></li>
+</ol>
+</li>
+<li id="_sidebar_5.2"><a href="#sec-Inputs-to-Cost-Analysis"><span class="spec-secid">5.2</span>Inputs to Cost Analysis</a></li>
+<li id="_sidebar_5.3"><a href="#sec-Results-of-Cost-Analysis"><span class="spec-secid">5.3</span>Results of Cost Analysis</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.3" /><label for="_toggle_5.3"></label>
+<ol>
+<li id="_sidebar_5.3.1"><a href="#sec-Counts"><span class="spec-secid">5.3.1</span>Counts</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.3.1" /><label for="_toggle_5.3.1"></label>
+<ol>
+<li id="_sidebar_5.3.1.1"><a href="#sec-Type-Counts"><span class="spec-secid">5.3.1.1</span>Type Counts</a></li>
+<li id="_sidebar_5.3.1.2"><a href="#sec-Input-Type-Counts"><span class="spec-secid">5.3.1.2</span>Input Type Counts</a></li>
+<li id="_sidebar_5.3.1.3"><a href="#sec-Field-Counts"><span class="spec-secid">5.3.1.3</span>Field Counts</a></li>
+<li id="_sidebar_5.3.1.4"><a href="#sec-Input-Field-Counts"><span class="spec-secid">5.3.1.4</span>Input Field Counts</a></li>
+<li id="_sidebar_5.3.1.5"><a href="#sec-Argument-Counts"><span class="spec-secid">5.3.1.5</span>Argument Counts</a></li>
+<li id="_sidebar_5.3.1.6"><a href="#sec-Directive-Counts"><span class="spec-secid">5.3.1.6</span>Directive Counts</a></li>
+</ol>
+</li>
+<li id="_sidebar_5.3.2"><a href="#sec-Costs"><span class="spec-secid">5.3.2</span>Costs</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_5.3.2" /><label for="_toggle_5.3.2"></label>
+<ol>
+<li id="_sidebar_5.3.2.1"><a href="#sec-Type-Cost"><span class="spec-secid">5.3.2.1</span>Type Cost</a></li>
+<li id="_sidebar_5.3.2.2"><a href="#sec-Field-Cost"><span class="spec-secid">5.3.2.2</span>Field Cost</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_6"><a href="#sec-Introspection"><span class="spec-secid">6</span>Introspection</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6" /><label for="_toggle_6"></label>
+<ol>
+<li id="_sidebar_6.1"><a href="#sec-Introspection-of-Cost-Analysis-Results"><span class="spec-secid">6.1</span>Introspection of Cost Analysis Results</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_6.1" /><label for="_toggle_6.1"></label>
+<ol>
+<li id="_sidebar_6.1.1"><a href="#sec-Naming"><span class="spec-secid">6.1.1</span>Naming</a></li>
+<li id="_sidebar_6.1.2"><a href="#sec-__cost"><span class="spec-secid">6.1.2</span>__cost</a></li>
+<li id="_sidebar_6.1.3"><a href="#sec-regexName-Arguments"><span class="spec-secid">6.1.3</span>regexName Arguments</a></li>
+<li id="_sidebar_6.1.4"><a href="#sec-regexPath-Arguments"><span class="spec-secid">6.1.4</span>regexPath Arguments</a></li>
+<li id="_sidebar_6.1.5"><a href="#sec-requestCosts-and-responseCosts"><span class="spec-secid">6.1.5</span>requestCosts and responseCosts</a></li>
+</ol>
+</li>
+<li id="_sidebar_6.2"><a href="#sec-introspectionOnly"><span class="spec-secid">6.2</span>introspectionOnly</a></li>
+<li id="_sidebar_6.3"><a href="#sec-NoSchemaIntrospectionCustomRule"><span class="spec-secid">6.3</span>NoSchemaIntrospectionCustomRule</a></li>
+<li id="_sidebar_6.4"><a href="#sec-Introspection-of-Cost-Directives"><span class="spec-secid">6.4</span>Introspection of Cost Directives</a></li>
+</ol>
+</li>
+<li id="_sidebar_7"><a href="#sec-The-Cost-Directive"><span class="spec-secid">7</span>The Cost Directive</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_7" /><label for="_toggle_7"></label>
+<ol>
+<li id="_sidebar_7.1"><a href="#sec-weight"><span class="spec-secid">7.1</span>weight</a></li>
+<li id="_sidebar_7.2"><a href="#sec-The-Cost-Directive.Locations"><span class="spec-secid">7.2</span>Locations</a></li>
+</ol>
+</li>
+<li id="_sidebar_8"><a href="#sec-The-List-Size-Directive"><span class="spec-secid">8</span>The List Size Directive</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_8" /><label for="_toggle_8"></label>
+<ol>
+<li id="_sidebar_8.1"><a href="#sec-assumedSize"><span class="spec-secid">8.1</span>assumedSize</a></li>
+<li id="_sidebar_8.2"><a href="#sec-slicingArguments"><span class="spec-secid">8.2</span>slicingArguments</a></li>
+<li id="_sidebar_8.3"><a href="#sec-sizedFields"><span class="spec-secid">8.3</span>sizedFields</a></li>
+<li id="_sidebar_8.4"><a href="#sec-requireOneSlicingArgument"><span class="spec-secid">8.4</span>requireOneSlicingArgument</a></li>
+<li id="_sidebar_8.5"><a href="#sec-The-List-Size-Directive.Locations"><span class="spec-secid">8.5</span>Locations</a></li>
+</ol>
+</li>
+<li id="_sidebar_9"><a href="#sec-Validation"><span class="spec-secid">9</span>Validation</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_9" /><label for="_toggle_9"></label>
+<ol>
+<li id="_sidebar_9.1"><a href="#sec-Cost-Directive"><span class="spec-secid">9.1</span>Cost Directive</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_9.1" /><label for="_toggle_9.1"></label>
+<ol>
+<li id="_sidebar_9.1.1"><a href="#sec-No-Cost-on-Interface-Fields"><span class="spec-secid">9.1.1</span>No Cost on Interface Fields</a></li>
+</ol>
+</li>
+<li id="_sidebar_9.2"><a href="#sec-List-Size-Directive"><span class="spec-secid">9.2</span>List Size Directive</a>
+<input hidden class="toggle" type="checkbox" id="_toggle_9.2" /><label for="_toggle_9.2"></label>
+<ol>
+<li id="_sidebar_9.2.1"><a href="#sec-Valid-List-Size-Target"><span class="spec-secid">9.2.1</span>Valid List Size Target</a></li>
+<li id="_sidebar_9.2.2"><a href="#sec-Valid-Sized-Fields-Target"><span class="spec-secid">9.2.2</span>Valid Sized Fields Target</a></li>
+<li id="_sidebar_9.2.3"><a href="#sec-Valid-Slicing-Arguments-Target"><span class="spec-secid">9.2.3</span>Valid Slicing Arguments Target</a></li>
+<li id="_sidebar_9.2.4"><a href="#sec-Valid-Assumed-Size"><span class="spec-secid">9.2.4</span>Valid Assumed Size</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li id="_sidebar_index"><a href="#index"><span class="spec-secid">§</span>Index</a></li>
+</ol>
+</div>
+</div>
+</body>
+</html>

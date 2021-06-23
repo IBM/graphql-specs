@@ -4,8 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IBM GraphQL Specifications</title>
-</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+plex+sans" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton" />
+    <style>
+        body{font-family: 'IBM plex sans',sans-serif; font-size: 1.5em; padding-bottom: 50px;}
+        .jumbotron{background-color: #0f62fe; color: white; font-family: 'Anton'; font-size: 2em;}
+        h3{padding: 2vw 0 1vw 0; transform: scaleY(1.2);}
+        iframe{margin-top: 25px; margin-bottom: 25px;}
+    </style>
+  </head>
 <body>
-    GraphQL
+    <div class="container-fluid">
+        <div class="jumbotron text-center">GraphQL Cost Directives Specification</div>
+    </div>
+    <div class="container">
+        <h3>Overview</h3>
+        <p>
+            GraphQL cost analysis is crucial to enabling your server to enforce threat protection, rate limiting and monetization.
+            If you spend a lot of your time on GraphQL then you already know that cost analysis is important.
+            If you’re used to REST and you don’t understand why cost analysis is essential for GraphQL,
+            then you’re not alone and hopefully this short video can help.
+        </p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/QZfmSDofeVg" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        <p>
+            To proper analyze a request, its definition is not enough. The provider needs to supply some guidance on top of the GraphQL schema 
+            to better assess the cost of the query. We propose the use of directives to decorate the schema.
+
+            This specification defines a set of GraphQL Specification and Description Language (SDL)  directives that advertise 
+            enough information to calculate the cost of executing GraphQL queries.
+        </p>
+
+        <h3>Specification</h3>
+        <p>Here is a draft of the <a href="cost-spec.html">specification</a> itself.</p>
+
+        <h3>Related Videos</h3>
+        <p>
+            This 3 minute video introduces the three methods of GraphQL cost analysis that are explained
+            in <a target="_blank" href="cost-spec.html#sec-Methods-of-Cost-Analysis">section 6.1</a>.
+        </p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/EfRjeZxQFio" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        <p>
+            If a picture is worth a thousand words, then how about a 4-minute step-by-step walkthrough of
+            GraphQL Static Query Analysis as explained in <a target="_blank" href="cost-spec.html#sec-Static-Query-Analysis">section 6.1.1</a>.
+        </p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/DkHNZOA3rM0" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+        <h3>Implementations</h3>
+        This specification is implemented in
+        <a href="https://www.ibm.com/cloud/api-connect" target="_blank">IBM API Connect</a> v10.
+    </div>
 </body>
 </html>
