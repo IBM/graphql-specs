@@ -123,12 +123,12 @@ The <a href="#sec-Goals">Goals</a>, <a href="#sec-Example">Example</a>, and <a h
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Example">3</a></span>Example</h1>
 <p>An example of an SDL document containing the proposed directives is:</p>
 <pre id="example-c3975" class="spec-example" data-language="graphql"><a href="#example-c3975">Example № 1</a><code><span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> String
-  <span class="token attr-name">age</span><span class="token punctuation">:</span> Int <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">)</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+  <span class="token attr-name">age</span><span class="token punctuation">:</span> <span class="token scalar">Int</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">users</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Int<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>User<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token attr-name">users</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">User</span><span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>How expensive or costly are various fields? Really this depends on how costly it is to run the resolver functions on the GraphQL server. With the &lsquo;raw&rsquo; SDL, or GraphQL schema, we don&rsquo;t know, but with the added directives we know that:</p>
@@ -138,9 +138,9 @@ The <a href="#sec-Goals">Goals</a>, <a href="#sec-Example">Example</a>, and <a h
 <li>The <code>@listSize</code> directive is used to define that the <code>max</code> argument of the field <code>Query.users</code> is a <a href="https://graphql.org/learn/pagination/#slicing">slicing argument</a> - therefore cost analysis can rely on that argument&rsquo;s value in a query to know an upper bound of how many <code>User</code> types are returned by the <code>Query.users</code> field.</li>
 </ul>
 <p>We can consider how to apply this enhanced schema to the following example query:</p>
-<pre id="example-e5fe6" class="spec-example" data-language="graphql"><a href="#example-e5fe6">Example № 2</a><code><span class="token keyword">query</span> Example <span class="token punctuation">{</span>
-  users <span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    age
+<pre id="example-e5fe6" class="spec-example" data-language="graphql"><a href="#example-e5fe6">Example № 2</a><code><span class="token keyword">query</span> <span class="token definition-query function">Example</span> <span class="token punctuation">{</span>
+  <span class="token property-query">users</span> <span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property">age</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -354,7 +354,7 @@ This document specifies how to calculate each count, but if counts are saved or 
 <section id="sec-Field-Cost.Example-Argument-Weights" class="subsec">
 <h6><a href="#sec-Field-Cost.Example-Argument-Weights" title="link to this subsection">Example: Argument Weights</a></h6>
 <pre id="example-680a6" class="spec-example" data-language="graphql"><a href="#example-680a6">Example № 10</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  topProducts<span class="token punctuation">(</span><span class="token attr-name">filter</span><span class="token punctuation">:</span> Filter <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"15.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
+  <span class="token property-query">topProducts</span><span class="token punctuation">(</span><span class="token attr-name">filter</span><span class="token punctuation">:</span> <span class="token class-name">Filter</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"15.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, a query that asks for <code>topProducts</code> has a Field Cost of <code>5.0</code> unless it uses a filter which results in much more work in the same single resolver function and therefore increases the Field Cost on this field to <code>20.0</code>, as the sum of <code>5.0</code> for the field itself and <code>15.0</code> for the argument.</p>
@@ -362,25 +362,25 @@ This document specifies how to calculate each count, but if counts are saved or 
 <section id="sec-Field-Cost.Example-Negative-Weights" class="subsec">
 <h6><a href="#sec-Field-Cost.Example-Negative-Weights" title="link to this subsection">Example: Negative Weights</a></h6>
 <pre id="example-e03dd" class="spec-example" data-language="graphql"><a href="#example-e03dd">Example № 11</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  mostPopularProduct<span class="token punctuation">(</span><span class="token attr-name">approx</span><span class="token punctuation">:</span> Approximate <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-3.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Product <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span>
+  <span class="token property-query">mostPopularProduct</span><span class="token punctuation">(</span><span class="token attr-name">approx</span><span class="token punctuation">:</span> <span class="token class-name">Approximate</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-3.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">Product</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, a query that asks for the most popular product has a Field Cost of <code>5.0</code> unless it uses an argument to indicate that only an approximate answer is needed and not an exact transactional answer, in which case the cost would reduce to <code>2.0</code> as 5.0 - 3.0 = <code>2.0</code>. This is an example of where negative weights can be used even though a given field cannot add a negative value to the overall cost. Conceptually, we can understand that certain arguments might make it less expensive to run a given resolver function.</p>
 </section>
 <section id="sec-Field-Cost.Example-Input-Field-Weights" class="subsec">
 <h6><a href="#sec-Field-Cost.Example-Input-Field-Weights" title="link to this subsection">Example: Input Field Weights</a></h6>
-<pre id="example-ed150" class="spec-example" data-language="graphql"><a href="#example-ed150">Example № 12</a><code><span class="token keyword">input</span> Filter <span class="token punctuation">{</span>
-  <span class="token attr-name">approx</span><span class="token punctuation">:</span> Approximate <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-12.0"</span><span class="token punctuation">)</span>
+<pre id="example-ed150" class="spec-example" data-language="graphql"><a href="#example-ed150">Example № 12</a><code><span class="token keyword">input</span> <span class="token object">Filter</span> <span class="token punctuation">{</span>
+  <span class="token attr-name">approx</span><span class="token punctuation">:</span> <span class="token class-name">Approximate</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-12.0"</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  topProducts<span class="token punctuation">(</span><span class="token attr-name">filter</span><span class="token punctuation">:</span> Filter <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"15.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
+  <span class="token property-query">topProducts</span><span class="token punctuation">(</span><span class="token attr-name">filter</span><span class="token punctuation">:</span> <span class="token class-name">Filter</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"15.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token punctuation">]</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"5.0"</span><span class="token punctuation">)</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>This example builds on <a href="#example-1d232">example above</a> where the <code>filter</code> contributed an extra <code>15.0</code> to the cost of the <code>topProducts</code> field. Now we qualify that: If the filter is only approximate then the weight is decreased by adding <code>-12.0</code> which means that the <code>filter</code> argument overall contributes a weight of 15.0 - 12.0 = <code>3.0</code> to the base field cost of <code>5.0</code> for an overall field cost of <code>8.0</code>.</p>
 </section>
 <section id="sec-Field-Cost.Example-Directive-Arguments" class="subsec">
 <h6><a href="#sec-Field-Cost.Example-Directive-Arguments" title="link to this subsection">Example: Directive Arguments</a></h6>
-<pre id="example-9f05a" class="spec-example" data-language="graphql"><a href="#example-9f05a">Example № 13</a><code><span class="token keyword">directive</span> <span class="token directive function">@approx</span> <span class="token punctuation">(</span><span class="token attr-name">tolerance</span><span class="token punctuation">:</span> Float<span class="token operator">!</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-1.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token class-name">FIELD</span>
+<pre id="example-9f05a" class="spec-example" data-language="graphql"><a href="#example-9f05a">Example № 13</a><code><span class="token keyword">directive</span> <span class="token directive function">@approx</span> <span class="token punctuation">(</span><span class="token attr-name">tolerance</span><span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token string">"-1.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token constant">FIELD</span>
 </code></pre>
 <p>In this example, we modify the <code>@approx</code> directive&rsquo;s required <code>tolerance</code> argument to have a weight of <code>-1.0</code>, which therefore adds <code>-1.0</code> to the cost of every use of the <code>@approx</code> directive, and in turn to every field which uses the <code>@approx</code> directive. This slightly decreases the cost of every field in a query which only needs approximate results.</p>
 </section>
@@ -406,38 +406,38 @@ This document specifies how to calculate each count, but if counts are saved or 
 <section id="sec-__cost" secid="6.1.2">
 <h3><span class="spec-secid" title="link to this section"><a href="#sec-__cost">6.1.2</a></span>__cost</h3>
 <p>This extension to the schema introspection system is accessible from the meta-field <code>__cost</code> which is accessible from the type of the root of a query operation.</p>
-<pre data-language="graphql"><code><span class="token attr-name">__cost</span> <span class="token punctuation">:</span> __Cost<span class="token operator">!</span>
+<pre data-language="graphql"><code><span class="token attr-name">__cost</span> <span class="token punctuation">:</span> <span class="token class-name">__Cost</span><span class="token operator">!</span>
 </code></pre>
 <p>Like all meta-fields, <code>__cost</code> is implicit and does not appear in the fields list in the root type of the query operation.</p>
 <p>The schema of the GraphQL cost introspection system:</p>
 <pre data-language="graphql"><code><span class="token keyword">type</span> <span class="token class-name">__Cost</span> <span class="token punctuation">{</span>
-   <span class="token attr-name">requestCosts</span> <span class="token punctuation">:</span> __CostMetrics
-   <span class="token attr-name">responseCosts</span> <span class="token punctuation">:</span> __CostMetrics
+   <span class="token attr-name">requestCosts</span> <span class="token punctuation">:</span> <span class="token class-name">__CostMetrics</span>
+   <span class="token attr-name">responseCosts</span> <span class="token punctuation">:</span> <span class="token class-name">__CostMetrics</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">__CostMetrics</span> <span class="token punctuation">{</span>
-   fieldCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
-   typeCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
-   inputTypeCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
-   inputFieldCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
-   argumentCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
-   directiveCounts<span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostCountType<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">fieldCounts</span><span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostCountType</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">typeCounts</span><span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostCountType</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">inputTypeCounts</span><span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostCountType</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">inputFieldCounts</span><span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostCountType</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">argumentCounts</span><span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostCountType</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">directiveCounts</span><span class="token punctuation">(</span><span class="token attr-name">regexName</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostCountType</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
 
-   <span class="token attr-name">fieldCost</span> <span class="token punctuation">:</span> Float<span class="token operator">!</span>
-   <span class="token attr-name">typeCost</span> <span class="token punctuation">:</span> Float<span class="token operator">!</span>
+   <span class="token attr-name">fieldCost</span> <span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span>
+   <span class="token attr-name">typeCost</span> <span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span>
 
-   fieldCostByLocation<span class="token punctuation">(</span><span class="token attr-name">regexPath</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostByLocation<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
-   typeCostByLocation<span class="token punctuation">(</span><span class="token attr-name">regexPath</span><span class="token punctuation">:</span> String<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span>__CostByLocation<span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">fieldCostByLocation</span><span class="token punctuation">(</span><span class="token attr-name">regexPath</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostByLocation</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
+   <span class="token property-query">typeCostByLocation</span><span class="token punctuation">(</span><span class="token attr-name">regexPath</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">__CostByLocation</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token operator">!</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">__CostByLocation</span> <span class="token punctuation">{</span>
-   <span class="token attr-name">path</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
-   <span class="token attr-name">cost</span><span class="token punctuation">:</span> Float<span class="token operator">!</span>
+   <span class="token attr-name">path</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+   <span class="token attr-name">cost</span><span class="token punctuation">:</span> <span class="token scalar">Float</span><span class="token operator">!</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">__CostCountType</span> <span class="token punctuation">{</span>
-   <span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span>
-   <span class="token attr-name">value</span><span class="token punctuation">:</span>  Int<span class="token operator">!</span>
+   <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span>
+   <span class="token attr-name">value</span><span class="token punctuation">:</span>  <span class="token scalar">Int</span><span class="token operator">!</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>The counts <code>fieldCounts</code>, <code>typeCounts</code>, <code>inputTypeCounts</code>, <code>inputFieldCounts</code>, <code>argumentCounts</code>, and <code>directiveCounts</code> returned correspond to the result <span class="spec-ref"><a href="#counts" data-name="counts">counts</a></span> calculated for the overall query.</p>
@@ -456,28 +456,28 @@ This document specifies how to calculate each count, but if counts are saved or 
 <p>In the absence of a proper GraphQL Query Coordinates RFC, we are including some examples to illustrate the idea. We feel that an actual spec for Query Coordinates should be independent and not part of this document.</p>
 <p>Consider this example GraphQL query:</p>
 <pre id="example-93976" class="spec-example" data-language="graphql"><a href="#example-93976">Example № 14</a><code><span class="token punctuation">{</span>
-  a1<span class="token punctuation">(</span><span class="token attr-name">arg1</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token attr-name">arg2</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token attr-name">f1</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token attr-name">f2</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    x <span class="token directive function">@dir1</span><span class="token punctuation">(</span><span class="token attr-name">f3</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token attr-name">f4</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">)</span>
+  <span class="token property-query">a1</span><span class="token punctuation">(</span><span class="token attr-name">arg1</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token attr-name">arg2</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token attr-name">f1</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token attr-name">f2</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property">x</span> <span class="token directive function">@dir1</span><span class="token punctuation">(</span><span class="token attr-name">f3</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token attr-name">f4</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">)</span>
     <span class="token operator">...</span><span class="token fragment function">b</span> <span class="token directive function">@dir2</span>
-    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token directive function">@dir3</span> <span class="token punctuation">{</span>
-      c
+    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token constant">A</span> <span class="token directive function">@dir3</span> <span class="token punctuation">{</span>
+      <span class="token property">c</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-  a2 <span class="token punctuation">{</span>
+  <span class="token object">a2</span> <span class="token punctuation">{</span>
     <span class="token operator">...</span><span class="token fragment function">b</span>
-    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-      nest <span class="token punctuation">{</span>
-        y
+    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token constant">A</span> <span class="token punctuation">{</span>
+      <span class="token object">nest</span> <span class="token punctuation">{</span>
+        <span class="token property">y</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-      nest <span class="token punctuation">{</span>
-        z
+    <span class="token operator">...</span> <span class="token keyword">on</span> <span class="token constant">A</span> <span class="token punctuation">{</span>
+      <span class="token object">nest</span> <span class="token punctuation">{</span>
+        <span class="token property">z</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-<span class="token keyword">fragment</span> <span class="token fragment function">b</span> <span class="token keyword">on</span> <span class="token class-name">A</span> <span class="token directive function">@dir4</span> <span class="token punctuation">{</span>
+<span class="token keyword">fragment</span> <span class="token fragment function">b</span> <span class="token keyword">on</span> <span class="token constant">A</span> <span class="token directive function">@dir4</span> <span class="token punctuation">{</span>
 
 <span class="token punctuation">}</span>
 </code></pre>
@@ -510,28 +510,28 @@ This document specifies how to calculate each count, but if counts are saved or 
 <p>Here is another example:</p>
 <pre id="example-25339" class="spec-example" data-language="graphql"><a href="#example-25339">Example № 15</a><code>
 <span class="token keyword">query</span> <span class="token constant">A</span> <span class="token punctuation">{</span>
-  a <span class="token punctuation">{</span>
-    <span class="token attr-name">y</span><span class="token punctuation">:</span> x <span class="token punctuation">{</span> i j <span class="token punctuation">}</span>
-    <span class="token attr-name">x</span><span class="token punctuation">:</span> y
-    <span class="token attr-name">z</span><span class="token punctuation">:</span> x <span class="token punctuation">{</span> j k <span class="token punctuation">}</span>
-    <span class="token operator">...</span><span class="token fragment function">B</span>
+  <span class="token object">a</span> <span class="token punctuation">{</span>
+    <span class="token attr-name">y</span><span class="token punctuation">:</span> <span class="token object">x</span> <span class="token punctuation">{</span> <span class="token property">i</span> <span class="token property">j</span> <span class="token punctuation">}</span>
+    <span class="token attr-name">x</span><span class="token punctuation">:</span> <span class="token property">y</span>
+    <span class="token attr-name">z</span><span class="token punctuation">:</span> <span class="token object">x</span> <span class="token punctuation">{</span> <span class="token property">j</span> <span class="token property">k</span> <span class="token punctuation">}</span>
+    <span class="token operator">...</span><span class="token constant">B</span>
  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">fragment</span> <span class="token fragment function">B</span> <span class="token punctuation">{</span>
-  z
+<span class="token keyword">fragment</span> <span class="token constant">B</span> <span class="token punctuation">{</span>
+  <span class="token property">z</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">query</span> <span class="token constant">B</span> <span class="token punctuation">{</span>
-  a <span class="token punctuation">{</span>
-    a
-    b
-    <span class="token operator">...</span><span class="token fragment function">A</span>
+  <span class="token object">a</span> <span class="token punctuation">{</span>
+    <span class="token property">a</span>
+    <span class="token property">b</span>
+    <span class="token operator">...</span><span class="token constant">A</span>
  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">fragment</span> <span class="token fragment function">A</span> <span class="token punctuation">{</span>
-  c
+<span class="token keyword">fragment</span> <span class="token constant">A</span> <span class="token punctuation">{</span>
+  <span class="token property">c</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this query, legal paths include:</p>
@@ -574,7 +574,7 @@ This document specifies how to calculate each count, but if counts are saved or 
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-The-Cost-Directive">7</a></span>The Cost Directive</h1>
 <p>The purpose of the <code>cost</code> directive is to define a <code>weight</code> for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall <a href="#sec-Costs">cost</a> of a query or response.</p>
 <p>Formally, the definition of the <dfn id="cost-directive"><a href="#cost-directive" data-name="cost-directive">cost Directive</a></dfn> is:</p>
-<pre data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">on</span> 
+<pre data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@cost</span><span class="token punctuation">(</span><span class="token attr-name">weight</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">on</span> 
   <span class="token operator">|</span> <span class="token constant">ARGUMENT_DEFINITION</span>
   <span class="token operator">|</span> <span class="token constant">ENUM</span>
   <span class="token operator">|</span> <span class="token constant">FIELD_DEFINITION</span>
@@ -610,11 +610,11 @@ This document specifies how to calculate each count, but if counts are saved or 
 <p>The purpose of the <code>@listSize</code> directive is to either inform the static analysis about the size of returned lists (if that information is statically available), or to point the analysis to where to find that information.</p>
 <p>Formally, the definition of the <dfn id="listsize-directive"><a href="#listsize-directive" data-name="listsize-directive">listSize Directive</a></dfn> is:</p>
 <pre data-language="graphql"><code><span class="token keyword">directive</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span>
-  <span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> Int<span class="token punctuation">,</span>
-  <span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token attr-name">sizedFields</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token operator">!</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token attr-name">requireOneSlicingArgument</span><span class="token punctuation">:</span> Boolean <span class="token operator">=</span> <span class="token boolean">true</span>
-<span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token class-name">FIELD_DEFINITION</span>
+  <span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">,</span>
+  <span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token attr-name">sizedFields</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token attr-name">requireOneSlicingArgument</span><span class="token punctuation">:</span> <span class="token scalar">Boolean</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+<span class="token punctuation">)</span> <span class="token keyword">on</span> <span class="token constant">FIELD_DEFINITION</span>
 
 </code></pre>
 <section id="sec-assumedSize" secid="8.1">
@@ -622,7 +622,7 @@ This document specifies how to calculate each count, but if counts are saved or 
 <p>The <code>assumedSize</code> argument can be used to statically define the maximum length of a list returned by a field.</p>
 <p>For example, in the following schema document, the <code>assumedSize</code> argument states that the list of strings returned by field <code>Query.topProducts</code> will always be 10:</p>
 <pre id="example-e3314" class="spec-example" data-language="graphql"><a href="#example-e3314">Example № 16</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">topProducts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
+  <span class="token attr-name">topProducts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">assumedSize</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>For static analysis to produce accurate counts and cost, the GraphQL server must ensure that the list returned by a field with an <code>assumedSize</code> directive does in fact return lists of (at most) the defined size.</p>
@@ -632,7 +632,7 @@ This document specifies how to calculate each count, but if counts are saved or 
 <p>The <code>slicingArguments</code> argument can be used to define which of the field&rsquo;s arguments with numeric type are <a href="https://graphql.org/learn/pagination/#slicing">slicing arguments</a>, so that their value determines the size of the list returned by that field. It may specify a list of multiple slicing arguments.</p>
 <p>For example, in the following schema document, the <code>slicingArguments</code> argument states that the <code>max</code> argument of field <code>Query.users</code> is a slicing argument:</p>
 <pre id="example-83dc0" class="spec-example" data-language="graphql"><a href="#example-83dc0">Example № 17</a><code><span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">users</span> <span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Int<span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token attr-name">users</span> <span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token operator">!</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token scalar">String</span><span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>When analyzing a query that includes that field, the static analysis can use the value of the <code>max</code> argument to determine how long the list of users is going to be (at most).</p>
@@ -645,18 +645,18 @@ This document specifies how to calculate each count, but if counts are saved or 
 <p>This option is relevant primarily for schemas that implement the <a href="https://relay.dev/graphql/connections.htm">GraphQL Cursor Connections Specification</a>. In it, fields with slicing arguments <code>first</code> and <code>last</code> return a single <a href="https://relay.dev/graphql/connections.htm#sec-Connection-Types">Connection</a> with a field <a href="https://relay.dev/graphql/connections.htm#sec-Edges"><code>edges</code></a> that itself returns the sliced list (in which each element is contained in an <a href="https://relay.dev/graphql/connections.htm#sec-Edge-Types">Edge</a>).</p>
 <p>For example, in the following schema document, the field <code>Query.films</code> has two slicing arguments <code>first</code> and <code>last</code>. The field returns a single <code>FilmConnection</code>, which itself provides access to multiple <code>FilmEdge</code>s via its <code>FilmConnection.edges</code> field. The <code>sizedFields</code> option states the the size of the list returned by <code>FilmConnection.edges</code> is determined by the value of one of the slicing arguments of the parent field:</p>
 <pre id="example-d0feb" class="spec-example" data-language="graphql"><a href="#example-d0feb">Example № 18</a><code><span class="token keyword">type</span> <span class="token class-name">FilmEdge</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">cursor</span><span class="token punctuation">:</span> ID
-  <span class="token attr-name">node</span><span class="token punctuation">:</span> Film <span class="token comment"># Definition of this type left out in this example</span>
+  <span class="token attr-name">cursor</span><span class="token punctuation">:</span> <span class="token scalar">ID</span>
+  <span class="token attr-name">node</span><span class="token punctuation">:</span> <span class="token class-name">Film</span> <span class="token comment"># Definition of this type left out in this example</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">FilmConnection</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">edges</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>FilmEdge<span class="token punctuation">]</span>
+  <span class="token attr-name">edges</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">FilmEdge</span><span class="token punctuation">]</span>
   <span class="token comment"># See https://relay.dev/graphql/connections.htm#sec-Connection-Types.Fields.PageInfo</span>
-  <span class="token attr-name">pageInfo</span><span class="token punctuation">:</span> PageInfo
+  <span class="token attr-name">pageInfo</span><span class="token punctuation">:</span> <span class="token class-name">PageInfo</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">films</span><span class="token punctuation">(</span><span class="token attr-name">first</span><span class="token punctuation">:</span> Int<span class="token punctuation">,</span> <span class="token attr-name">after</span><span class="token punctuation">:</span> ID<span class="token punctuation">,</span> <span class="token attr-name">last</span><span class="token punctuation">:</span> Int<span class="token punctuation">,</span> <span class="token attr-name">before</span><span class="token punctuation">:</span> ID<span class="token punctuation">)</span><span class="token punctuation">:</span> FilmConnection <span class="token directive function">@listSize</span><span class="token punctuation">(</span>
+  <span class="token attr-name">films</span><span class="token punctuation">(</span><span class="token attr-name">first</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">,</span> <span class="token attr-name">after</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token punctuation">,</span> <span class="token attr-name">last</span><span class="token punctuation">:</span> <span class="token scalar">Int</span><span class="token punctuation">,</span> <span class="token attr-name">before</span><span class="token punctuation">:</span> <span class="token scalar">ID</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token class-name">FilmConnection</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span>
       <span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"first"</span><span class="token punctuation">,</span> <span class="token string">"last"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token attr-name">sizedFields</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"edges"</span><span class="token punctuation">]</span>
     <span class="token punctuation">)</span>

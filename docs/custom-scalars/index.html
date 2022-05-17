@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IBM GraphQL Custom Scalars</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton" />
+    <style>
+        body{font-family: 'IBM plex sans',sans-serif; font-size: 1.5em; padding-bottom: 50px;}
+        .jumbotron{background-color: #0f62fe; color: white; font-family: 'Anton'; font-size: 2em;}
+        h3{padding: 2vw 0 1vw 0; transform: scaleY(1.2);}
+        iframe{margin-top: 25px; margin-bottom: 25px;}
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron text-center">GraphQL Custom Scalars</div>
+    </div>
+    <div class="container">
+        <h3>Overview</h3>
+        <p>
+          GraphQL Custom Scalars are an important feature of GraphQL, allowing users to define scalars
+	  that are not part of the <a href="http://spec.graphql.org/October2021/#sec-Scalars.Built-in-Scalars">built-in scalars.</a>
+        </p>
+        
+        <h3>GraphQL Specification</h3>
+        <p>The latest draft of the <a href="http://spec.graphql.org/draft/#sec-Scalars.Custom-Scalars">Custom Scalars specification</a> is provided by the GraphQL Foundation.</p>
+        
+        <h3>Scalar Param Specification</h3>
+        <p>We introduce a new directive named <code>@scalarParam</code> exclusively for custom scalars.
+	  This directive can be used to configure a custom scalar.
+	  We provide a draft for this <a href="scalar-param.html">scalarParam specification</a>.</p>
+
+        <h3>Custom Scalar Specifications</h3>
+            <ul>
+                <li><a href="long.html">Long</a> </li>
+                <li><a href="date-time.html">DateTime</a> </li>
+            </ul>
+
+        <h3>Implementations</h3>
+        This specification is implemented in
+        <a href="https://www.ibm.com/cloud/api-connect" target="_blank">IBM API Connect</a>, starting with v10.0.4.0.
+
+    </div>
+</body>
+</html>
