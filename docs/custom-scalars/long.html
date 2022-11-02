@@ -23,9 +23,9 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <ol>
 <li><a href="#sec-Goals"><span class="spec-secid">1</span>Goals</a></li>
 <li><a href="#sec-Definition"><span class="spec-secid">2</span>Definition</a></li>
-<li><a href="#sec-Example-of-the-Long-Scalar-Type"><span class="spec-secid">3</span>Example of the Long Scalar Type</a></li>
-<li><a href="#sec-Customizing-the-Long-Scalar-Type"><span class="spec-secid">4</span>Customizing the Long Scalar Type</a></li>
-<li><a href="#sec-Example-of-Long-Customization"><span class="spec-secid">5</span>Example of Long Customization</a></li>
+<li><a href="#sec-Example-of-the-Long-Type"><span class="spec-secid">3</span>Example of the Long Type</a></li>
+<li><a href="#sec-Customizing-the-Long-Type"><span class="spec-secid">4</span>Customizing the Long Type</a></li>
+<li><a href="#sec-Example-of-Long-Type-Customization"><span class="spec-secid">5</span>Example of Long Type Customization</a></li>
 <li><a href="#sec-Result-Coercion"><span class="spec-secid">6</span>Result Coercion</a></li>
 <li><a href="#sec-Input-Coercion"><span class="spec-secid">7</span>Input Coercion</a></li>
 </ol>
@@ -33,100 +33,100 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 </header>
 <section id="sec-Goals" secid="1">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Goals">1</a></span>Goals</h1>
-<p>This specification defines the custom scalar type <strong><code>Long</code></strong> that is useful for dealing with integers larger than those handled by <strong><code>Int</code></strong>. </p>
-<p><strong>Note:</strong> All mentions of <strong><code>Long</code></strong> are referring to the scalar type defined by this specification. All mentions of <code>Long</code> are referring to user declared scalar name. </p>
+<p>This specification defines the custom scalar type <strong>Long</strong> that is useful for dealing with integers larger than those handled by <strong><code>Int</code></strong>. </p>
+<p><strong>Note:</strong> All mentions of <strong>Long</strong> are referring to the scalar type defined by this specification. All mentions of <code>Long</code> are referring to user declared scalar name. </p>
 </section>
 <section id="sec-Definition" secid="2">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Definition">2</a></span>Definition</h1>
 <ul>
-<li>Scalar type <strong><code>Long</code></strong> is a 64-bit signed Integer. </li>
-<li><strong><code>Long</code></strong> supports numbers from <code>-9223372036854775808</code> to <code>9223372036854775807</code> inclusive by default. More details about range configuration is provided in <a href="#sec-Customizing-the-Long-Scalar-Type">Customizing the Long Scalar Type</a>.</li>
-<li>A scalar type with any name can be marked as <strong><code>Long</code></strong> using the built in <code>@specifiedBy</code> directive. The URL to mark the type as <strong><code>Long</code></strong> in the <code>@specifiedBy</code> directive is <code>https://ibm.github.io/graphql-specs/custom-scalars/long.html</code>.</li>
-<li>In the absence of the <code>@specifiedBy</code> directive, an implementation <em>may</em> treat a scalar type as <strong><code>Long</code></strong> if the name of the type is <code>Long</code>.</li>
-<li>If the <code>@specifiedBy</code> directive is present, an implementation can only treat a scalar type as <strong><code>Long</code></strong> if the <code>@specifiedBy</code> directive provides the URL of the specification of <strong><code>Long</code></strong>. </li>
+<li><strong>Long</strong> is a 64-bit signed Integer. </li>
+<li><strong>Long</strong> supports numbers from <code>-9223372036854775808</code> to <code>9223372036854775807</code> inclusive by default. More details about range configuration is provided in <a href="#sec-Customizing-the-Long-Type">Customizing the Long Type</a>.</li>
+<li>A scalar type with any name can be marked as <strong>Long</strong> using the built in <code>@specifiedBy</code> directive. The URL to mark the type as <strong>Long</strong> in the <code>@specifiedBy</code> directive is <code>https://ibm.github.io/graphql-specs/custom-scalars/long.html</code>.</li>
+<li>In the absence of the <code>@specifiedBy</code> directive, an implementation <em>may</em> treat a scalar type as <strong>Long</strong> if the name of the type is <code>Long</code>.</li>
+<li>If the <code>@specifiedBy</code> directive is present, an implementation can only treat a scalar type as <strong>Long</strong> if the <code>@specifiedBy</code> directive provides the URL of the specification of <strong>Long</strong>. </li>
 </ul>
 </section>
-<section id="sec-Example-of-the-Long-Scalar-Type" secid="3">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-the-Long-Scalar-Type">3</a></span>Example of the Long Scalar Type</h1>
-<p>The following example uses the <strong><code>Long</code></strong> scalar type:</p>
+<section id="sec-Example-of-the-Long-Type" secid="3">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-the-Long-Type">3</a></span>Example of the Long Type</h1>
+<p>The following example uses <strong>Long</strong>:</p>
 <pre id="example-596fa" class="spec-example" data-language="graphql"><a href="#example-596fa">Example № 1</a><code><span class="token keyword">scalar</span> <span class="token class-name">LargeNumber</span> <span class="token directive function">@specifiedBy</span> <span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://ibm.github.io/graphql-specs/custom-scalars/long.html"</span><span class="token punctuation">)</span>
 <span class="token keyword">scalar</span> <span class="token class-name">Long</span>
 <span class="token keyword">scalar</span> <span class="token class-name">UnknownScalar</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Asguardian</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
-  <span class="token attr-name">age</span><span class="token punctuation">:</span> <span class="token class-name">LargeNumber</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String
+  <span class="token attr-name">age</span><span class="token punctuation">:</span> LargeNumber
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token class-name">Long</span> <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Asguardian</span><span class="token punctuation">]</span>
+  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Long <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Asguardian<span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In the example above, the following points should be noted:</p>
 <ul>
-<li>Scalar <code>LargeNumber</code> is considered to be <strong><code>Long</code></strong> type because we used the URL for the <strong><code>Long</code></strong> specification in the <code>@specifiedBy</code> directive.</li>
-<li>Despite the absence of a URL, <code>Long</code> may be recognized as a <strong><code>Long</code></strong> type because the name of the scalar type is <code>Long</code> and there is no <code>@specifiedBy</code> directive to mark it otherwise. </li>
-<li><code>UnknownScalar</code> is not considered to be <strong><code>Long</code></strong> as none of the preceding two conditions are satisfied. </li>
+<li>Scalar <code>LargeNumber</code> is considered to be <strong>Long</strong> because we used the URL for the <strong>Long</strong> specification in the <code>@specifiedBy</code> directive.</li>
+<li>Despite the absence of a URL, <code>Long</code> may be recognized as a <strong>Long</strong> because the name of the scalar type is <code>Long</code> and there is no <code>@specifiedBy</code> directive to mark it otherwise. </li>
+<li><code>UnknownScalar</code> is not considered to be <strong>Long</strong> as none of the preceding two conditions are satisfied. </li>
 <li>The <code>max</code> argument used in <code>Query.asguardians</code> has a default value larger than the upper bound of a 32-bit signed Integer. </li>
 <li><code>Asguardian.age</code> is of type <code>LargeNumber</code> because we expect large numbers to be returned by the resolver function for this field.</li>
 </ul>
 <p>This is a simple example query that matches the schema:</p>
-<pre id="example-e5af1" class="spec-example" data-language="graphql"><a href="#example-e5af1">Example № 2</a><code><span class="token property">Query</span> <span class="token object">example</span> <span class="token punctuation">{</span>
-  <span class="token property-query">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">3000000000000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token property">name</span>
-    <span class="token property">age</span>
+<pre id="example-e5af1" class="spec-example" data-language="graphql"><a href="#example-e5af1">Example № 2</a><code>Query example <span class="token punctuation">{</span>
+  asguardians<span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">3000000000000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name
+    age
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </section>
-<section id="sec-Customizing-the-Long-Scalar-Type" secid="4">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Customizing-the-Long-Scalar-Type">4</a></span>Customizing the Long Scalar Type</h1>
-<p>The lower and upper bounds of <strong><code>Long</code></strong> can be changed via the <code>@scalarParam</code> directive as defined <a href="scalar-param.html">here</a>. The parameters used in the <code>@scalarParam</code> directive to specify the bounds are:</p>
+<section id="sec-Customizing-the-Long-Type" secid="4">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Customizing-the-Long-Type">4</a></span>Customizing the Long Type</h1>
+<p>The lower and upper bounds of <strong>Long</strong> can be changed via the <code>@scalarParam</code> directive as defined <a href="scalar-param.html">here</a>. The parameters used in the <code>@scalarParam</code> directive to specify the bounds are:</p>
 <ul>
-<li><code>min</code>, a string representation of a <strong><code>Long</code></strong> value used to specify the lower bound (default is <code>"-9223372036854775808"</code>).</li>
-<li><code>max</code>, a string representation of a <strong><code>Long</code></strong> value used to specify the upper bound (default is <code>"9223372036854775807"</code>).</li>
+<li><code>min</code>, a string representation of a <strong>Long</strong> value used to specify the lower bound (default is <code>"-9223372036854775808"</code>).</li>
+<li><code>max</code>, a string representation of a <strong>Long</strong> value used to specify the upper bound (default is <code>"9223372036854775807"</code>).</li>
 </ul>
 <p>The following conditions apply to range modification:</p>
 <ul>
-<li><code>min</code>, after coercion to a <strong><code>Long</code></strong>, <em>must not</em> be lower than the default lower bound. </li>
-<li><code>max</code>, after coercion to a <strong><code>Long</code></strong>, <em>must not</em> be greater than the default upper bound.</li>
-<li><code>min</code> <em>must not</em> be greater than <code>max</code>, after both are coerced to <strong><code>Long</code></strong> values.</li>
+<li><code>min</code>, after coercion to a <strong>Long</strong>, <em>must not</em> be lower than the default lower bound. </li>
+<li><code>max</code>, after coercion to a <strong>Long</strong>, <em>must not</em> be greater than the default upper bound.</li>
+<li><code>min</code> <em>must not</em> be greater than <code>max</code>, after both are coerced to <strong>Long</strong> values.</li>
 </ul>
 </section>
-<section id="sec-Example-of-Long-Customization" secid="5">
-<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-Long-Customization">5</a></span>Example of Long Customization</h1>
-<p>The following example demonstrates how to modify the range of <strong><code>Long</code></strong> using the <code>@scalarParam</code> directive:</p>
-<pre id="example-52c12" class="spec-example" data-language="graphql"><a href="#example-52c12">Example № 3</a><code><span class="token keyword">directive</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token constant">SCALAR</span>
+<section id="sec-Example-of-Long-Type-Customization" secid="5">
+<h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-Long-Type-Customization">5</a></span>Example of Long Type Customization</h1>
+<p>The following example demonstrates how to modify the range of <strong>Long</strong> using the <code>@scalarParam</code> directive:</p>
+<pre id="example-52c12" class="spec-example" data-language="graphql"><a href="#example-52c12">Example № 3</a><code><span class="token keyword">directive</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCALAR</span>
 <span class="token keyword">scalar</span> <span class="token class-name">LargeNumber</span> <span class="token directive function">@specifiedBy</span> <span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://ibm.github.io/graphql-specs/custom-scalars/long.html"</span><span class="token punctuation">)</span>
 <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"min"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"0"</span><span class="token punctuation">)</span>
 <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"max"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"5000000000000"</span><span class="token punctuation">)</span>
 <span class="token keyword">scalar</span> <span class="token class-name">Long</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"max"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"4000000000000"</span><span class="token punctuation">)</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Asguardian</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
-  <span class="token attr-name">age</span><span class="token punctuation">:</span> <span class="token class-name">LargeNumber</span>
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> String
+  <span class="token attr-name">age</span><span class="token punctuation">:</span> LargeNumber
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token class-name">Long</span> <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Asguardian</span><span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Long <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Asguardian<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, please note:</p>
 <ul>
-<li><code>LargeNumber</code> is a <strong><code>Long</code></strong> that will only support numbers from <code>0</code> through <code>5000000000000</code>, inclusive.</li>
-<li><code>Long</code> is a <strong><code>Long</code></strong> that will only support numbers from <code>-9223372036854775808</code> (the default) through <code>4000000000000</code>, inclusive.</li>
+<li><code>LargeNumber</code> is a <strong>Long</strong> that will only support numbers from <code>0</code> through <code>5000000000000</code>, inclusive.</li>
+<li><code>Long</code> is a <strong>Long</strong> that will only support numbers from <code>-9223372036854775808</code> (the default) through <code>4000000000000</code>, inclusive.</li>
 </ul>
 </section>
 <section id="sec-Result-Coercion" secid="6">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Result-Coercion">6</a></span>Result Coercion</h1>
-<p>Fields returning the type <strong><code>Long</code></strong> expect to encounter 64-bit integer internal values.</p>
-<p>All integer values <em>must</em> coerce to the equivalent <strong><code>Long</code></strong> value.</p>
-<p>GraphQL services may coerce non-integer internal values to <strong><code>Long</code></strong> when reasonable without losing information, otherwise they must raise a field error. Examples of this may include returning <code>1</code> for the floating-point number <code>1.0</code>, or returning <code>123</code> for the string <code>"123"</code>. In scenarios where coercion may lose data, a field error <em>should</em> be raised. For example, the floating-point number <code>1.2</code> <em>should</em> raise a field error instead of being truncated to the <strong><code>Long</code></strong> value <code>1</code>.</p>
+<p>Fields returning the type <strong>Long</strong> expect to encounter 64-bit integer internal values.</p>
+<p>All integer values <em>must</em> coerce to the equivalent <strong>Long</strong> value.</p>
+<p>GraphQL services may coerce non-integer internal values to <strong>Long</strong> when reasonable without losing information, otherwise they must raise a field error. Examples of this may include returning <code>1</code> for the floating-point number <code>1.0</code>, or returning <code>123</code> for the string <code>"123"</code>. In scenarios where coercion may lose data, a field error <em>should</em> be raised. For example, the floating-point number <code>1.2</code> <em>should</em> raise a field error instead of being truncated to the <strong>Long</strong> value <code>1</code>.</p>
 <p>If the integer internal value represents a value less than <code>-9223372036854775808</code> or greater than <code>9223372036854775807</code>, a field error should be raised.</p>
 </section>
 <section id="sec-Input-Coercion" secid="7">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Input-Coercion">7</a></span>Input Coercion</h1>
-<p>As an input type, only valid integers within the range of <strong><code>Long</code></strong> are accepted. All values that are not valid <strong><code>Long</code></strong>, including numeric strings, <em>must</em> raise a request error indicating an incorrect type. </p>
+<p>As an input type, only valid integers within the range of <strong>Long</strong> are accepted. All values that are not valid <strong>Long</strong>, including numeric strings, <em>must</em> raise a request error indicating an incorrect type. </p>
 </section>
 </article>
 <footer>
@@ -137,9 +137,9 @@ Written in <a href="https://spec-md.com" target="_blank">Spec Markdown</a>.</foo
 <div class="title"><a href="#">Long Custom Scalar</a></div>
 <ol><li id="_sidebar_1"><a href="#sec-Goals"><span class="spec-secid">1</span>Goals</a></li>
 <li id="_sidebar_2"><a href="#sec-Definition"><span class="spec-secid">2</span>Definition</a></li>
-<li id="_sidebar_3"><a href="#sec-Example-of-the-Long-Scalar-Type"><span class="spec-secid">3</span>Example of the Long Scalar Type</a></li>
-<li id="_sidebar_4"><a href="#sec-Customizing-the-Long-Scalar-Type"><span class="spec-secid">4</span>Customizing the Long Scalar Type</a></li>
-<li id="_sidebar_5"><a href="#sec-Example-of-Long-Customization"><span class="spec-secid">5</span>Example of Long Customization</a></li>
+<li id="_sidebar_3"><a href="#sec-Example-of-the-Long-Type"><span class="spec-secid">3</span>Example of the Long Type</a></li>
+<li id="_sidebar_4"><a href="#sec-Customizing-the-Long-Type"><span class="spec-secid">4</span>Customizing the Long Type</a></li>
+<li id="_sidebar_5"><a href="#sec-Example-of-Long-Type-Customization"><span class="spec-secid">5</span>Example of Long Type Customization</a></li>
 <li id="_sidebar_6"><a href="#sec-Result-Coercion"><span class="spec-secid">6</span>Result Coercion</a></li>
 <li id="_sidebar_7"><a href="#sec-Input-Coercion"><span class="spec-secid">7</span>Input Coercion</a></li>
 </ol>
