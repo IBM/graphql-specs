@@ -54,12 +54,12 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <span class="token keyword">scalar</span> <span class="token class-name">UnknownScalar</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Asguardian</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> String
-  <span class="token attr-name">age</span><span class="token punctuation">:</span> LargeNumber
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+  <span class="token attr-name">age</span><span class="token punctuation">:</span> <span class="token class-name">LargeNumber</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Long <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Asguardian<span class="token punctuation">]</span>
+  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token class-name">Long</span> <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Asguardian</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In the example above, the following points should be noted:</p>
@@ -71,10 +71,10 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <li><code>Asguardian.age</code> is of type <code>LargeNumber</code> because we expect large numbers to be returned by the resolver function for this field.</li>
 </ul>
 <p>This is a simple example query that matches the schema:</p>
-<pre id="example-e5af1" class="spec-example" data-language="graphql"><a href="#example-e5af1">Example № 2</a><code>Query example <span class="token punctuation">{</span>
-  asguardians<span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">3000000000000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    name
-    age
+<pre id="example-e5af1" class="spec-example" data-language="graphql"><a href="#example-e5af1">Example № 2</a><code><span class="token property">Query</span> <span class="token object">example</span> <span class="token punctuation">{</span>
+  <span class="token property-query">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token number">3000000000000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property">name</span>
+    <span class="token property">age</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -96,19 +96,19 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <section id="sec-Example-of-Long-Type-Customization" secid="5">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-Long-Type-Customization">5</a></span>Example of Long Type Customization</h1>
 <p>The following example demonstrates how to modify the range of <strong>Long</strong> using the <code>@scalarParam</code> directive:</p>
-<pre id="example-52c12" class="spec-example" data-language="graphql"><a href="#example-52c12">Example № 3</a><code><span class="token keyword">directive</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCALAR</span>
+<pre id="example-52c12" class="spec-example" data-language="graphql"><a href="#example-52c12">Example № 3</a><code><span class="token keyword">directive</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token constant">SCALAR</span>
 <span class="token keyword">scalar</span> <span class="token class-name">LargeNumber</span> <span class="token directive function">@specifiedBy</span> <span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://ibm.github.io/graphql-specs/custom-scalars/long.html"</span><span class="token punctuation">)</span>
 <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"min"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"0"</span><span class="token punctuation">)</span>
 <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"max"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"5000000000000"</span><span class="token punctuation">)</span>
 <span class="token keyword">scalar</span> <span class="token class-name">Long</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"max"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"4000000000000"</span><span class="token punctuation">)</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Asguardian</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">name</span><span class="token punctuation">:</span> String
-  <span class="token attr-name">age</span><span class="token punctuation">:</span> LargeNumber
+  <span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span>
+  <span class="token attr-name">age</span><span class="token punctuation">:</span> <span class="token class-name">LargeNumber</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> Long <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Asguardian<span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token attr-name">asguardians</span><span class="token punctuation">(</span><span class="token attr-name">max</span><span class="token punctuation">:</span> <span class="token class-name">Long</span> <span class="token operator">=</span> <span class="token number">4000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Asguardian</span><span class="token punctuation">]</span> <span class="token directive function">@listSize</span><span class="token punctuation">(</span><span class="token attr-name">slicingArguments</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, please note:</p>
