@@ -48,16 +48,16 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-the-JSON-Type">3</a></span>Example of the JSON Type</h1>
 <p>The following example uses the <strong>JSON</strong> type:</p>
 <pre id="example-5be93" class="spec-example" data-language="graphql"><a href="#example-5be93">Example № 1</a><code><span class="token keyword">scalar</span> <span class="token class-name">MyJSON</span> <span class="token directive function">@specifiedBy</span> <span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://ibm.github.io/graphql-specs/custom-scalars/json.html"</span><span class="token punctuation">)</span>
-<span class="token keyword">scalar</span> <span class="token class-name">JSON</span>
+<span class="token keyword">scalar</span> <span class="token constant">JSON</span>
 <span class="token keyword">scalar</span> <span class="token class-name">UnknownScalar</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>  
-  <span class="token attr-name">takesMyJSON</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> MyJSON<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
-  <span class="token attr-name">takesJSON</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token constant">JSON</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Int
+  <span class="token attr-name">takesMyJSON</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">MyJSON</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
+  <span class="token attr-name">takesJSON</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token constant">JSON</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">schema</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, the following points should be noted:</p>
@@ -68,8 +68,8 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <li>The <code>arg</code> arguments used in <code>Query.takesMyJSON</code> and <code>Query.takesJSON</code> each expect a <strong>JSON</strong> value.</li>
 </ul>
 <p>This is a simple example query that matches the schema:</p>
-<pre id="example-eb8a6" class="spec-example" data-language="graphql"><a href="#example-eb8a6">Example № 2</a><code><span class="token keyword">query</span> example <span class="token punctuation">{</span>
-   takesMyJSON <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token string">"{\"EV\" : \"Tesla\"}"</span><span class="token punctuation">)</span>
+<pre id="example-eb8a6" class="spec-example" data-language="graphql"><a href="#example-eb8a6">Example № 2</a><code><span class="token keyword">query</span> <span class="token definition-query function">example</span> <span class="token punctuation">{</span>
+   <span class="token property-query">takesMyJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token string">"{\"EV\" : \"Tesla\"}"</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </section>
@@ -114,13 +114,13 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
                        <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span> <span class="token punctuation">:</span> <span class="token string">"ScalarAllowed"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"false"</span><span class="token punctuation">)</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>  
-  <span class="token attr-name">takesObjJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> ObjectJSON<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
-  <span class="token attr-name">takesScalarJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> ScalarOnlyJSON<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
-  <span class="token attr-name">takesObjArrJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> ObjectArrayJSON<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
+  <span class="token attr-name">takesObjJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">ObjectJSON</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
+  <span class="token attr-name">takesScalarJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">ScalarOnlyJSON</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
+  <span class="token attr-name">takesObjArrJSON</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">ObjectArrayJSON</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">schema</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </section>

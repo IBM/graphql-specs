@@ -53,12 +53,12 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <span class="token keyword">scalar</span> <span class="token class-name">UnknownScalar</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>  
-  <span class="token attr-name">dummyDateTime</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> MyDateTime<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
-  <span class="token attr-name">dummyDateTime2</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> DateTime<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
+  <span class="token attr-name">dummyDateTime</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">MyDateTime</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
+  <span class="token attr-name">dummyDateTime2</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">DateTime</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">schema</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, the following points should be noted:</p>
@@ -69,8 +69,8 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <li>The <code>arg</code> arguments used in <code>Query.dummyDateTime</code> and <code>Query.dummyDateTime2</code> each expect a <strong>DateTime</strong> value. </li>
 </ul>
 <p>This is a simple example query that matches the schema:</p>
-<pre id="example-757ac" class="spec-example" data-language="graphql"><a href="#example-757ac">Example № 2</a><code><span class="token keyword">query</span> example <span class="token punctuation">{</span>
-    dummyDateTime <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token string">"2010-10-24T12:12:12+04:00"</span><span class="token punctuation">)</span>
+<pre id="example-757ac" class="spec-example" data-language="graphql"><a href="#example-757ac">Example № 2</a><code><span class="token keyword">query</span> <span class="token definition-query function">example</span> <span class="token punctuation">{</span>
+    <span class="token property-query">dummyDateTime</span> <span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token string">"2010-10-24T12:12:12+04:00"</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </section>
@@ -91,7 +91,7 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <section id="sec-Example-of-DateTime-Type-Customization" secid="5">
 <h1><span class="spec-secid" title="link to this section"><a href="#sec-Example-of-DateTime-Type-Customization">5</a></span>Example of DateTime Type Customization</h1>
 <p>The following example demonstrates how to modify the range of <strong>DateTime</strong> using the <code>@scalarParam</code> directive:</p>
-<pre id="example-65f8e" class="spec-example" data-language="graphql"><a href="#example-65f8e">Example № 3</a><code><span class="token keyword">directive</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token class-name">SCALAR</span>
+<pre id="example-65f8e" class="spec-example" data-language="graphql"><a href="#example-65f8e">Example № 3</a><code><span class="token keyword">directive</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token scalar">String</span><span class="token operator">!</span><span class="token punctuation">)</span> <span class="token keyword">repeatable</span> <span class="token keyword">on</span> <span class="token constant">SCALAR</span>
 
 <span class="token keyword">scalar</span> <span class="token class-name">TwentyTenDateTime</span> <span class="token directive function">@specifiedBy</span> <span class="token punctuation">(</span><span class="token attr-name">url</span><span class="token punctuation">:</span> <span class="token string">"https://ibm.github.io/graphql-specs/custom-scalars/date-time.html"</span><span class="token punctuation">)</span> 
                          <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"min"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"2010-01-15t08:30:30.345Z"</span><span class="token punctuation">)</span> 
@@ -100,12 +100,12 @@ This document is a DRAFT. It is being published to solicit feedback. It is a &ld
 <span class="token keyword">scalar</span> <span class="token class-name">DateTime</span> <span class="token directive function">@scalarParam</span> <span class="token punctuation">(</span><span class="token attr-name">name</span><span class="token punctuation">:</span> <span class="token string">"max"</span><span class="token punctuation">,</span> <span class="token attr-name">value</span><span class="token punctuation">:</span> <span class="token string">"2020-01-15t08:30:30.345Z"</span><span class="token punctuation">)</span>
 
 <span class="token keyword">type</span> <span class="token class-name">Query</span> <span class="token punctuation">{</span>  
-  <span class="token attr-name">dummyDateTime</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> TwentyTenDateTime<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
-  <span class="token attr-name">dummyDateTime2</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> DateTime<span class="token punctuation">)</span><span class="token punctuation">:</span> Int
+  <span class="token attr-name">dummyDateTime</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">TwentyTenDateTime</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
+  <span class="token attr-name">dummyDateTime2</span><span class="token punctuation">(</span><span class="token attr-name">arg</span><span class="token punctuation">:</span> <span class="token class-name">DateTime</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token scalar">Int</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">schema</span> <span class="token punctuation">{</span>
-  <span class="token attr-name">query</span><span class="token punctuation">:</span> Query
+  <span class="token attr-name">query</span><span class="token punctuation">:</span> <span class="token class-name">Query</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>In this example, the following points should be noted:</p>
